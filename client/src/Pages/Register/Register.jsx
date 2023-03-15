@@ -32,6 +32,14 @@ const Register=()=>{
                         />
                     </div>
                     <div className="input-container">
+                        <label>Other Name:</label>
+                        <input 
+                            type="text" 
+                            placeholder="Jane"       
+                            className="u-input"                          
+                        />
+                    </div>
+                    <div className="input-container">
                         <label>Username:</label>
                         <input 
                             type="text" 
@@ -47,20 +55,23 @@ const Register=()=>{
                             className="u-input"                              
                         />
                     </div>
-                    <div>
-                        <label>Gender:</label>
-                        <select className="u-input">
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            
-                        </select>
-                    </div>
-                    <div>
-                        <label>DOB:</label>
-                        <input 
-                            type="date" 
-                            className="u-input"                                 
-                        />
+                    <div className="person">
+                        <div>
+                            <label>Gender:</label>
+                            <select className="u-input">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                
+                            </select>
+                        </div>
+                        <div>
+                            <label>DOB:</label>
+                            <input 
+                                type="date" 
+                                className="u-input"                                 
+                            />
+                        </div>
+
                     </div>
                     <div>
                         <label>Country:</label>
@@ -80,7 +91,7 @@ const Register=()=>{
 
                     </div>
                     <div className="input-container">
-                        <label htmlFor="password">Password: <FontAwesomeIcon onClick={handleShowPassword} icon={showPassword?"fa-solid fa-eye":"fa-solid fa-eye-slash"} /></label>
+                        <label className="pass" htmlFor="password">Password: <FontAwesomeIcon onClick={handleShowPassword} icon={showPassword?"fa-solid fa-eye":"fa-solid fa-eye-slash"} /></label>
                         <input 
                             type={showPassword?"text":"password"} 
                             placeholder={showPassword?"password":"********"}  

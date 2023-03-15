@@ -25,7 +25,7 @@ const Login=()=>{
                         />
                     </div>
                     <div>
-                        <label htmlFor="password">Password: <FontAwesomeIcon onClick={handleShowPassword} icon={showPassword?"fa-solid fa-eye":"fa-solid fa-eye-slash"} /></label>
+                        <label className="pass" htmlFor="password">Password: <FontAwesomeIcon onClick={handleShowPassword} icon={showPassword?"fa-solid fa-eye":"fa-solid fa-eye-slash"} /></label>
                         <input 
                             type={showPassword?"text":"password"} 
                             placeholder={showPassword?"password":"********"}  

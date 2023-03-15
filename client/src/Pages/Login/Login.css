@@ -33,6 +33,11 @@
 .Login>div>h3>a:hover{
     color: var(--green-hover-color);
 }
+.pass{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 @media (min-width:451px) and (max-width:850px) {
     .Login>div{
         width: 90%;

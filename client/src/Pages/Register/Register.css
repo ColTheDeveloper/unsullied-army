@@ -30,6 +30,16 @@
 .Register>div>h3>a:hover{
     color: var(--green-hover-color);
 }
+.person{
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+}
+.pass{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 @media (min-width:451px) and (max-width:850px) {
     .Register>div{
         width: 90%;
