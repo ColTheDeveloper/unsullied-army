@@ -34,9 +34,16 @@
     color: var(--green-hover-color);
 }
 .pass{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: relative;
+}
+.pass>svg{
+    position: absolute;
+    bottom: 20%;
+    right: 3%;
+    color: black;
+}
+.pass>input{
+    width: 100%;
 }
 @media (min-width:451px) and (max-width:850px) {
     .Login>div{

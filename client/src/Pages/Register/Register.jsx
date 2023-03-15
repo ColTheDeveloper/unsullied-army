@@ -7,12 +7,15 @@ import countries from "../../data/countries.json";
 
 const Register=()=>{
     const [showPassword, setShowPassword]=useState(false)
+    const [isSelcted, setSelected]=useState(false)
     const [isAfrica, setIsAfrica]=useState(true)
 
     const handleCountry=(e)=>{
+        setSelected(true)
         if(e.target.value==="false"){
             setIsAfrica(false)
-        }else{
+        }
+        if(e.target.value==="true"){
             setIsAfrica(true)
         }
         
@@ -39,18 +42,18 @@ const Register=()=>{
                         />
                     </div>
                     <div className="input-container">
-                        <label>Last Name:</label>
-                        <input 
-                            type="text" 
-                            placeholder="Doe"       
-                            className="u-input"                          
-                        />
-                    </div>
-                    <div className="input-container">
                         <label>Other Name:</label>
                         <input 
                             type="text" 
                             placeholder="Jane"       
+                            className="u-input"                          
+                        />
+                    </div>
+                    <div className="input-container">
+                        <label>Last Name:</label>
+                        <input 
+                            type="text" 
+                            placeholder="Doe"       
                             className="u-input"                          
                         />
                     </div>
@@ -97,16 +100,17 @@ const Register=()=>{
                             name="country"  
                             onChange={handleCountry}
                             className="u-input" 
-                            defaultChecked                           
-                        />African
+                                                      
+                        />African &nbsp; &nbsp;
                         <input 
                             type="radio"
                             value="false"
                             name="country"
                             onChange={handleCountry}
                             className="u-input"
-                        />Other Country
-                        {isAfrica?
+                        />Other &nbsp; &nbsp;
+                        {isSelcted?
+                            isAfrica?
                             <select>
                                 {africanCountries.map((names)=>{
                                     return(
@@ -124,15 +128,19 @@ const Register=()=>{
                                 })}
 
                             </select>
+                        :""    
                         }
                     </div>
                     <div className="input-container">
-                        <label className="pass" htmlFor="password">Password: <FontAwesomeIcon onClick={handleShowPassword} icon={showPassword?"fa-solid fa-eye":"fa-solid fa-eye-slash"} /></label>
-                        <input 
-                            type={showPassword?"text":"password"} 
-                            placeholder={showPassword?"password":"********"}  
-                            className="u-input"                               
-                        />
+                        <label htmlFor="password">Password:</label>
+                        <div className="pass">
+                            <FontAwesomeIcon onClick={handleShowPassword} icon={showPassword?"fa-solid fa-eye":"fa-solid fa-eye-slash"} />
+                            <input 
+                                type={showPassword?"text":"password"} 
+                                placeholder={showPassword?"password":"********"}  
+                                className="u-input"                               
+                            />
+                        </div>
                     </div>
                     <button className="btn" type="submit">Sign Up</button>
                 </form>

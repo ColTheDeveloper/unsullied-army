@@ -24,13 +24,16 @@ const Login=()=>{
                             className="u-input"                               
                         />
                     </div>
-                    <div>
-                        <label className="pass" htmlFor="password">Password: <FontAwesomeIcon onClick={handleShowPassword} icon={showPassword?"fa-solid fa-eye":"fa-solid fa-eye-slash"} /></label>
-                        <input 
-                            type={showPassword?"text":"password"} 
-                            placeholder={showPassword?"password":"********"}  
-                            className="u-input"                               
-                        />
+                    <div className="input-container">
+                        <label htmlFor="password">Password:</label>
+                        <div className="pass">
+                            <FontAwesomeIcon onClick={handleShowPassword} icon={showPassword?"fa-solid fa-eye":"fa-solid fa-eye-slash"} />
+                            <input 
+                                type={showPassword?"text":"password"} 
+                                placeholder={showPassword?"password":"********"}  
+                                className="u-input"                               
+                            />
+                        </div>
                     </div>
                     <button className="btn" type="submit">Sign In</button>
                 </form>
