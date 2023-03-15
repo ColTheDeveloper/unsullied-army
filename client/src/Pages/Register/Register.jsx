@@ -2,11 +2,26 @@ import "./Register.css"
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import countries from "../../data/countries.json";
 
 
 const Register=()=>{
     const [showPassword, setShowPassword]=useState(false)
+    const [isAfrica, setIsAfrica]=useState(true)
 
+    const handleCountry=(e)=>{
+        if(e.target.value==="false"){
+            setIsAfrica(false)
+        }else{
+            setIsAfrica(true)
+        }
+        
+    }
+
+    const africanCountries=Object.values(countries).filter(key=>key.continent.includes("AF"))
+
+    const otherCountries=Object.values(countries).filter(key=>!key.continent.includes("AF"))
+    
     const handleShowPassword=()=>{
         setShowPassword(!showPassword)
     }
@@ -80,16 +95,36 @@ const Register=()=>{
                             type="radio" 
                             value="true"   
                             name="country"  
+                            onChange={handleCountry}
                             className="u-input" 
-                            checked                           
+                            defaultChecked                           
                         />African
                         <input 
                             type="radio"
                             value="false"
                             name="country"
+                            onChange={handleCountry}
                             className="u-input"
                         />Other Country
+                        {isAfrica?
+                            <select>
+                                {africanCountries.map((names)=>{
+                                    return(
+                                        <option key={names.name} value={names.name}>{names.name}</option>
+                                    )
+                                })}
 
+                            </select>
+                            :
+                            <select>
+                                {otherCountries.map((names)=>{
+                                    return(
+                                        <option key={names.name} value={names.name}>{names.name}</option>
+                                    )
+                                })}
+
+                            </select>
+                        }
                     </div>
                     <div className="input-container">
                         <label className="pass" htmlFor="password">Password: <FontAwesomeIcon onClick={handleShowPassword} icon={showPassword?"fa-solid fa-eye":"fa-solid fa-eye-slash"} /></label>
