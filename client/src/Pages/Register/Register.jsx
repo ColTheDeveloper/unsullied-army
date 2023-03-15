@@ -7,6 +7,7 @@ import countries from "../../data/countries.json";
 
 const Register=()=>{
     const [showPassword, setShowPassword]=useState(false)
+    const [passwordAvailable, setPasswordAvailable]=useState(true)
     const [isSelcted, setSelected]=useState(false)
     const [isAfrica, setIsAfrica]=useState(true)
 
@@ -142,6 +143,19 @@ const Register=()=>{
                             />
                         </div>
                     </div>
+                    {passwordAvailable &&
+                        <div className="input-container">
+                        <label htmlFor="password">Confirm Password:</label>
+                        <div className="pass">
+                            <FontAwesomeIcon onClick={handleShowPassword} icon={showPassword?"fa-solid fa-eye":"fa-solid fa-eye-slash"} />
+                            <input 
+                                type={showPassword?"text":"password"} 
+                                placeholder={showPassword?"password":"********"}  
+                                className="u-input"                               
+                            />
+                        </div>
+                        </div>
+                    }
                     <button className="btn" type="submit">Sign Up</button>
                 </form>
                 <h3>Already have an Account? <Link>Sign In</Link></h3>
