@@ -7,7 +7,7 @@ import countries from "../../data/countries.json";
 
 const Register=()=>{
     const [showPassword, setShowPassword]=useState(false)
-    const [passwordAvailable, setPasswordAvailable]=useState(true)
+    const [passwordAvailable]=useState(true)
     const [isSelcted, setSelected]=useState(false)
     const [isAfrica, setIsAfrica]=useState(true)
 
@@ -15,6 +15,7 @@ const Register=()=>{
         setSelected(true)
         if(e.target.value==="false"){
             setIsAfrica(false)
+            
         }
         if(e.target.value==="true"){
             setIsAfrica(true)
