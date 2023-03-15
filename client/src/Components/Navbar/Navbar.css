@@ -29,6 +29,9 @@
 }
 /* TABLET CSS STYLING */
 @media (max-width:850px) {
+    .Navbar{
+        padding: 1rem .5rem;
+    }
     .Navbar>a>img{
         width: 8rem;
     }

@@ -28,7 +28,20 @@
 .Login>div>h3>a{
     color: var(--green-text-color);
     font-weight: 700;
+    transition: all .2s;
 }
 .Login>div>h3>a:hover{
     color: var(--green-hover-color);
+}
+@media (min-width:451px) and (max-width:850px) {
+    .Login>div{
+        width: 90%;
+    }
+    
+}
+@media (max-width:450px){
+    .Login>div{
+        width: 99%;
+    }
+
 }

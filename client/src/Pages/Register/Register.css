@@ -1,0 +1,44 @@
+.Register{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Register>div{
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    border: 1px solid var(--text-color);
+    width: 42%;
+    padding: 2rem;
+    border-radius: 10px;
+}
+.Register>div>form{
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+.input-container{
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+.Register>div>h3>a{
+    color: var(--green-text-color);
+    font-weight: 700;
+    transition: all .2s;
+}
+.Register>div>h3>a:hover{
+    color: var(--green-hover-color);
+}
+@media (min-width:451px) and (max-width:850px) {
+    .Register>div{
+        width: 90%;
+    }
+    
+}
+@media (max-width:450px){
+    .Register>div{
+        width: 99%;
+    }
+
+}
