@@ -101,14 +101,14 @@ const Register=()=>{
                             onChange={handleCountry}
                             className="u-input" 
                                                       
-                        />African &nbsp; &nbsp;
+                        />&nbsp;African &nbsp; &nbsp;
                         <input 
                             type="radio"
                             value="false"
                             name="country"
                             onChange={handleCountry}
                             className="u-input"
-                        />Other &nbsp; &nbsp;
+                        />&nbsp;Other &nbsp; &nbsp;
                         {isSelcted?
                             isAfrica?
                             <select>
