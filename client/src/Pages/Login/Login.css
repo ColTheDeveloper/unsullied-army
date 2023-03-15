@@ -1,0 +1,34 @@
+.Login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 88.4vh;
+    
+}
+.Login>div{
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    border: 1px solid var(--text-color);
+    width: 42%;
+    padding: 2rem;
+    border-radius: 10px;
+}
+.Login>div>form{
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+.Login>div>form>div{
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+.Login>div>h3>a{
+    color: var(--green-text-color);
+    font-weight: 700;
+}
+.Login>div>h3>a:hover{
+    color: var(--green-hover-color);
+}

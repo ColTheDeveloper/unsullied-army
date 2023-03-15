@@ -1,0 +1,56 @@
+.Navbar{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    overflow-x: hidden;
+}
+.Navbar>a>img{
+    width: 12rem;
+}
+@media (min-width:451px) and (max-width:850px) {
+    
+    
+}
+@media (max-width:450px){
+
+}
+.Navbar>nav{
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+}
+
+.Navbar>.icon{
+    display: none;
+}
+.active{
+    color: black;
+    font-weight: 700;
+}
+/* TABLET CSS STYLING */
+@media (max-width:850px) {
+    .Navbar>a>img{
+        width: 8rem;
+    }
+    .Navbar>nav{
+        position: absolute;
+        top: 4rem;
+        right: 3%;
+        width: 10rem;
+        background: #36E07F  linear-gradient(#3bec8896, #079e48a5) no-repeat;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        z-index: 400;
+        border-radius: 10px;
+        transition: right .2s;
+        
+    }
+    .Navbar>.icon{
+        display:block;
+        font-size: 2rem;
+        transition: all .2s;
+    }
+    
+}

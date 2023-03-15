@@ -1,0 +1,48 @@
+:root{
+  --background-color: #272528;
+  --text-color:#e0dcdc;
+  --gradient-background-color: #36E07F  linear-gradient(#3bec8896, #079e48a5) no-repeat;
+  --green-text-color:#36E07F;
+  --green-hover-color:#079e48a5;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a{
+  text-decoration: none;
+  color: var(--text-color);
+}
+h3{
+  font-weight: 500;
+}
+.App{
+  background-color: var(--background-color);
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+  height: 100vh;
+}
+.btn{
+  background:var(--gradient-background-color) ;
+  color: var(--text-color);
+  border: 1px solid var(--green-text-color);
+  font-weight: 700;
+  border-radius: 3px;
+  width: 100%;
+  padding: .3rem;
+}
+.btn:hover{
+  color: var(--green-text-color);
+  background-color: transparent;
+
+}
+.u-input{
+  padding: .3rem;
+  border-radius: 3px;
+  border: none;
+}
+.u-input:focus{
+  border: 1px solid var(--gradient-background-color);
+  outline: none;
+}
