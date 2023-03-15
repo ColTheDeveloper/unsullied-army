@@ -68,6 +68,7 @@ const Register=()=>{
                             <label>DOB:</label>
                             <input 
                                 type="date" 
+                                max="2007-01-01"
                                 className="u-input"                                 
                             />
                         </div>
