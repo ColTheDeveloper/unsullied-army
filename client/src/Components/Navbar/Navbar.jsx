@@ -11,11 +11,14 @@ import { useState } from "react"
 
 const Navbar=()=>{
     const [navIsOpen, setNavIsOpen]=useState(false)
-
-    const user= true
+    const [user,setUser]=useState(true)
 
     const handleNav=()=>{
         setNavIsOpen(!navIsOpen)
+    }
+    const handleLogout=()=>{
+        setUser(!user)
+
     }
     return(
         <div className="Navbar">
@@ -28,7 +31,7 @@ const Navbar=()=>{
                 {user?
                     <>
                     <NavLink to="profile/id">My Profile</NavLink>
-                    <NavLink to="logout">Log Out</NavLink>
+                    <NavLink onClick={handleLogout}>Log Out</NavLink>
                     </>
                 :
                     <>
