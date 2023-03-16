@@ -40,7 +40,8 @@
         top: 4rem;
         right: 3%;
         width: 10rem;
-        background: #36E07F  linear-gradient(#3bec8896, #079e48a5) no-repeat;
+        /* background: #36E07F  linear-gradient(#3bec8896, #079e48a5) no-repeat; */
+        background: #36E07F linear-gradient( #079e48a5, #272528a9) no-repeat;
         flex-direction: column;
         align-items: center;
         gap: 1rem;

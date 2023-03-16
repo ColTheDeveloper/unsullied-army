@@ -28,3 +28,15 @@
     height: 3rem;
     border-bottom:2px solid white;
 }
+@media (min-width:451px) and (max-width:850px) {
+    
+    .Profile>div:nth-of-type(2){
+        width: 90%;
+    }
+    
+}
+@media (max-width:450px){
+    .Profile>div:nth-of-type(2){
+        width: 95%;
+    }
+}

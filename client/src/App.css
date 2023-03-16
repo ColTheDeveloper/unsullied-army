@@ -2,6 +2,7 @@
   --background-color: #272528;
   --text-color:#e0dcdc;
   --gradient-background-color: #36E07F  linear-gradient(#3bec8896, #079e48a5) no-repeat;
+  --gradient-background-color-2-0:#36E07F linear-gradient( #079e48a5, #272528a9) no-repeat;
   --green-text-color:#36E07F;
   --green-hover-color:#079e48a5;
 }
