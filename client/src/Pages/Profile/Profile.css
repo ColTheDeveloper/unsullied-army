@@ -28,6 +28,13 @@
     height: 3rem;
     border-bottom:2px solid white;
 }
+.Profile>div:nth-of-type(2)>a{
+    color: white;
+}
+.Profile>div:nth-of-type(2)>.active{
+    color: #36E07F ;
+}
+
 @media (min-width:451px) and (max-width:850px) {
     
     .Profile>div:nth-of-type(2){

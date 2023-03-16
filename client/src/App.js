@@ -11,6 +11,8 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faBarsStaggered, faBars, faEye,faEyeSlash, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import EditProfile from './Pages/EditProfile/EditProfile';
 import Security from './Pages/Security/Security';
+import ProfileSocial from './Subpages/ProfileSocial/ProfileSocial';
+import ProfileTeam from './Subpages/ProfileTeam/ProfileTeam';
 
 
 library.add(faBarsStaggered, faBars,faEye,faEyeSlash,faCaretDown);
@@ -30,6 +32,8 @@ function App() {
             <Route path='profile/id' element={<Profile />} >
               <Route index element={<EditProfile />} />
               <Route path='security' element={<Security />} />
+              <Route path='social' element={<ProfileSocial />} />
+              <Route path='team' element={<ProfileTeam />} />
             </Route>
           </Route>
         </Routes>
