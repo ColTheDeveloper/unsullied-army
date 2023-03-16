@@ -27,7 +27,7 @@ const Navbar=()=>{
                 <NavLink to="about">About</NavLink>
                 {user?
                     <>
-                    <NavLink to="profile">My Profile</NavLink>
+                    <NavLink to="profile/id">My Profile</NavLink>
                     <NavLink to="logout">Log Out</NavLink>
                     </>
                 :
