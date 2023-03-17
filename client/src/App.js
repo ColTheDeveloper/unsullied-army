@@ -29,7 +29,7 @@ function App() {
             <Route path="about" element={<h1>About</h1>} />
             <Route path='register' element={<Register />} />
             <Route path='*' element={<h1>Error</h1>} />
-            <Route path='profile/id' element={<Profile />} >
+            <Route path='/profile/id' element={<Profile />} >
               <Route index element={<EditProfile />} />
               <Route path='security' element={<Security />} />
               <Route path='social' element={<ProfileSocial />} />

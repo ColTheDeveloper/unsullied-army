@@ -1,10 +1,25 @@
 import "./ProfileTeam.css"
 
 const ProfileTeam=()=>{
-    return(
-        <div>
+    const user={
+        name:"Aremu Olakunle",
+        team:""
 
-        </div>
-    )
+    }
+    if(user.team===""){
+        return(
+            <div className="no-team">
+                <h3>You don't have a team</h3>
+                <button className="btn">Create Team</button>
+            </div>
+        )
+    }else{
+        return(
+            <div>
+
+            </div>
+        )
+    }
+    
 }
 export default ProfileTeam;

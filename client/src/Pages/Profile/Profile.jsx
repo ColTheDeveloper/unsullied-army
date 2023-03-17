@@ -12,7 +12,7 @@ const Profile=()=>{
                 <span>ColWebDev</span>
             </div>
             <div>
-                <NavLink to="/profile/id/">General</NavLink>
+                <NavLink to="/profile/id">General</NavLink>
                 <NavLink to="social">Socials</NavLink>
                 <NavLink to="team">Teams</NavLink>
                 <NavLink to="security">Security</NavLink>

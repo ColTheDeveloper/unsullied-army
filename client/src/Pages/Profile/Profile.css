@@ -44,7 +44,7 @@
     content: " ";
     width: 100%;
     left: 0%;
-    bottom: -50%;
+    top: 2rem;
     height: .3rem;
     border-radius: 5px 5px 0 0;
     background: var(--gradient-background-color-2-0);

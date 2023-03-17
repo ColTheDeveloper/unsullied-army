@@ -1,0 +1,10 @@
+.no-team{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+}
+.no-team>button{
+    width: 30%;
+}
