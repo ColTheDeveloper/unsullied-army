@@ -7,4 +7,16 @@
 }
 .no-team>button{
     width: 30%;
+
+}
+@media (min-width:451px) and (max-width:850px) {
+    .no-team>button{
+        width: 50%;
+    }
+    
+}
+@media (max-width:450px){
+    .no-team>button{
+        width: 70%;
+    }
 }

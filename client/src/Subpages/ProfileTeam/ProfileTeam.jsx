@@ -1,3 +1,4 @@
+import CreateTeam from "../../Components/CreateTeam/CreateTeam"
 import "./ProfileTeam.css"
 
 const ProfileTeam=()=>{
@@ -10,12 +11,18 @@ const ProfileTeam=()=>{
         return(
             <div className="no-team">
                 <h3>You don't have a team</h3>
-                <button className="btn">Create Team</button>
+                <CreateTeam />
+                <button className="btn">Join a Team</button>
             </div>
         )
     }else{
         return(
             <div>
+                <div>
+                    <img src="" alt="" />
+                    <h2>Die Hard Gaming</h2>
+                    <p>this is created for all winners</p>    
+                </div>
 
             </div>
         )

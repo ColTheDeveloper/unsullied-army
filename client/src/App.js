@@ -13,6 +13,7 @@ import EditProfile from './Pages/EditProfile/EditProfile';
 import Security from './Pages/Security/Security';
 import ProfileSocial from './Subpages/ProfileSocial/ProfileSocial';
 import ProfileTeam from './Subpages/ProfileTeam/ProfileTeam';
+import 'reactjs-popup/dist/index.css';
 
 
 library.add(faBarsStaggered, faBars,faEye,faEyeSlash,faCaretDown);
