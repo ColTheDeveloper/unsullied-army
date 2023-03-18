@@ -24,7 +24,7 @@
     display: none;
 }
 .active{
-    color: black;
+    color: var(--green-text-color);
     font-weight: 700;
 }
 /* TABLET CSS STYLING */
