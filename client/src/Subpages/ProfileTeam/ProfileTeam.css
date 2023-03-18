@@ -1,22 +1,76 @@
+.ProfileTeam{
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+.team-card-wrapper{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+}
+.team-card{
+    width: 30%;
+    border-radius: 10px;
+    padding: 2rem;
+    background: var(--gradient-background-color-2-0);
+    transition: scale .2s;
+}
+.team-card>a{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.team-card:hover{
+    scale: .98;
+}
+.team-card>a>img{
+    width: 150px;
+    height: 150px;
+    border-radius: 30%;
+}
+.ProfileTeam>div:nth-of-type(2){
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    width: 30%;
+    margin: 0 auto;
+    padding-bottom:2rem ;
+}
 .no-team{
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: 2rem;
     padding: 2rem;
+    
 }
-.no-team>button{
-    width: 30%;
 
-}
 @media (min-width:451px) and (max-width:850px) {
-    .no-team>button{
-        width: 50%;
+    .team-card{
+        width: 45%;
+    }
+    .ProfileTeam>div:nth-of-type(2){
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        width: 70%;
+        margin: 0 auto;
     }
     
 }
 @media (max-width:450px){
-    .no-team>button{
-        width: 70%;
+    .team-card{
+        width: 100%;
+    }
+    .ProfileTeam>div:nth-of-type(2){
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        width: 90%;
+        margin: 0 auto;
     }
 }

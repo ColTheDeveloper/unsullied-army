@@ -1,0 +1,50 @@
+.TeamDetails>div:nth-of-type(2){
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    width: 40%;
+    height: 3rem;
+    border-bottom: 2px solid var(--text-color);
+}
+.TeamDetails>div:nth-of-type(2)>a{
+    color: white;
+    transition: all .3s;
+}
+.TeamDetails>div:nth-of-type(2)>.active{
+    position: relative;
+    color: #36E07F ;
+    transition: all .3s ease-in-out;
+    
+}
+.TeamDetails>div:nth-of-type(2)>.active::after{
+    position: absolute;
+    content: " ";
+    width: 100%;
+    left: 0%;
+    top: 2rem;
+    height: .3rem;
+    border-radius: 5px 5px 0 0;
+    background: var(--gradient-background-color-2-0);
+}
+@media (min-width:451px) and (max-width:850px) {
+    
+    .TeamDetails>div:nth-of-type(2){
+        width: 90%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 2rem;
+    }
+    
+}
+@media (max-width:450px){
+    .TeamDetails>div:nth-of-type(2){
+        width: 95%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 2rem;
+        scrollbar-width: none;
+        
+    }
+    
+}

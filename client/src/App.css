@@ -2,6 +2,8 @@
   --background-color: #272528;
   --text-color:#e0dcdc;
   --gradient-background-color: #36E07F  linear-gradient(#3bec8896, #079e48a5) no-repeat;
+  --danger-btn-color: #e03636 linear-gradient(#ec3b4796, #9e0725a5) no-repeat;
+  --danger-hover-btn-color: red linear-gradient(#ec3b4796, #9e0725a5) no-repeat;
   --gradient-background-color-2-0:#36E07F linear-gradient( #079e48a5, #272528a9) no-repeat;
   --green-text-color:#36E07F;
   --green-hover-color:#079e48a5;
@@ -47,6 +49,20 @@ label{
   color: var(--green-text-color);
   background-color: transparent;
 
+}
+.danger-btn{
+  background:var(--danger-btn-color) ;
+  color: var(--text-color);
+  border: 1px solid red;
+  font-weight: 700;
+  border-radius: 3px;
+  width: 100%;
+  padding: .3rem;
+  transition: all .4s;
+}
+.danger-btn:hover{
+  color:#e03636;
+  background: var(--danger-hover-btn-color);
 }
 .u-input{
   padding: .3rem;

@@ -14,6 +14,9 @@ import Security from './Pages/Security/Security';
 import ProfileSocial from './Subpages/ProfileSocial/ProfileSocial';
 import ProfileTeam from './Subpages/ProfileTeam/ProfileTeam';
 import 'reactjs-popup/dist/index.css';
+import TeamDetails from './Pages/TeamDetails/TeamDetails';
+import TeamEvent from './Subpages/TeamEvent/TeamEvent';
+import TeamMember from './Subpages/TeamMember/TeamMember';
 
 
 library.add(faBarsStaggered, faBars,faEye,faEyeSlash,faCaretDown);
@@ -35,6 +38,10 @@ function App() {
               <Route path='security' element={<Security />} />
               <Route path='social' element={<ProfileSocial />} />
               <Route path='team' element={<ProfileTeam />} />
+            </Route>
+            <Route path="team/team-name" element={<TeamDetails />}>
+              <Route index element={<TeamEvent />} />
+              <Route path='members' element={<TeamMember />} />
             </Route>
           </Route>
         </Routes>
