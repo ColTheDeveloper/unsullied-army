@@ -11,6 +11,10 @@ const ProfileTeam=()=>{
     }
     return(
         <div className="ProfileTeam">
+            <div className="y-line-wrapper">
+                <div className="y-line"></div>
+                <h2>Teams</h2>
+            </div>
             <div>
                 {user.team?
                     <div className="team-card-wrapper">
