@@ -1,0 +1,40 @@
+.follow-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    
+}
+.follow-wrapper>span:nth-of-type(1){
+    font-weight: 700;
+
+}
+.follow-wrapper>span:nth-of-type(2){
+    font-weight: 500;
+    font-size: .8rem;
+}
+.follow-card{
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid var(--green-text-color);
+    padding: .3rem; */
+    border-bottom: 1px solid var(--green-text-color);
+    padding: .2rem;
+
+}
+.follow-card>div{
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+}
+.follow-card>div>img{
+    border-radius: 50%;
+    width: 50px;
+}
+.follow-name{
+    display: flex;
+    flex-direction: column;
+}
+.follow-name>span:nth-of-type(1){
+    font-size: 1.3rem;
+}

@@ -1,6 +1,8 @@
 import "./Profile.css"
 import profile from "../../Images/profile.jpg"
 import { NavLink, Outlet } from "react-router-dom"
+import Follower from "../../Components/Follower/Follower"
+import Following from "../../Components/Following/following"
 
 const Profile=()=>{
     return(
@@ -8,19 +10,14 @@ const Profile=()=>{
             <div className="profile-card">
                 <img src={profile} alt="usernae" width="30"/>
                 <h2>Aremu Olakunle</h2>
+                <p><span>Colakunleumaru@gmail.com</span></p>
                 <span>ColWebDev</span>
                 <div>
-                    <div className="follow-wrapper">
-                        <span>200</span>
-                        <span>Followers</span>
-                    </div>
+                    <Follower />
                     <div className="follower-line"/>
-                    <div className="follow-wrapper">
-                        <span>400</span>
-                        <span>Following</span>
-                    </div>
+                    <Following />
                 </div>
-                <button>Visitor Mode</button>
+                <button className="profile-action">Visitor Mode</button>
             </div>
             <div>
                 <NavLink to="gamer-stat">Gamer Stats</NavLink>

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 const ProfileTeam=()=>{
     const user={
         name:"Aremu Olakunle",
-        team:false
+        team:true
 
     }
     return(
