@@ -1,6 +1,7 @@
 import Popup from "reactjs-popup";
 import "./Follower.css"
 import profile from "../../Images/profile.jpg"
+import { Link } from "react-router-dom";
 
 const Follower=()=>{
     return(
@@ -23,7 +24,7 @@ const Follower=()=>{
                             <div>
                                 <img src={profile} alt="profile" />
                                 <div className="follow-name">
-                                    <span>Aremu Olakunle</span>
+                                    <span><Link to="/profile/id">Aremu Olakunle</Link></span>
                                     <span>Colwebdev</span>
                                 </div>
                             </div>
@@ -35,7 +36,7 @@ const Follower=()=>{
                             <div>
                                 <img src={profile} alt="profile"/>
                                 <div className="follow-name">
-                                    <span>Aremu Olakunle</span>
+                                    <span><Link to="/profile/id">Aremu Olakunle</Link></span>
                                     <span>Colwebdev</span>
                                 </div>
                             </div>
@@ -47,7 +48,7 @@ const Follower=()=>{
                             <div>
                                 <img src={profile} alt="profile" />
                                 <div className="follow-name">
-                                    <span>Aremu Olakunle</span>
+                                    <span><Link to="/profile/id">Aremu Olakunle</Link></span>
                                     <span>Colwebdev</span>
                                 </div>
                             </div>

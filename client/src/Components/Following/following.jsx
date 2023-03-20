@@ -1,6 +1,7 @@
 import "../Follower/Follower.css"
 import Popup from "reactjs-popup"
 import profile from "../../Images/profile.jpg"
+import { Link } from "react-router-dom"
 
 const Following=()=>{
     return(
@@ -17,13 +18,13 @@ const Following=()=>{
                     <button className="close" onClick={close}>
                         X
                     </button>
-                    <div className="header">Followers</div>
+                    <div className="header">Followering</div>
                     <div className="content">
                         <div className="follow-card">
-                            <div to="/profile/id">
+                            <div>
                                 <img src={profile} alt="profile" />
                                 <div className="follow-name">
-                                    <span>Aremu Olakunle</span>
+                                    <span><Link to="/profile/id">Aremu Olakunle</Link></span>
                                     <span>Colwebdev</span>
                                 </div>
                             </div>
@@ -35,7 +36,7 @@ const Following=()=>{
                             <div>
                                 <img src={profile} alt="profile"/>
                                 <div className="follow-name">
-                                    <span>Aremu Olakunle</span>
+                                    <span><Link to="/profile/id">Aremu Olakunle</Link></span>
                                     <span>Colwebdev</span>
                                 </div>
                             </div>
@@ -47,7 +48,7 @@ const Following=()=>{
                             <div>
                                 <img src={profile} alt="profile" />
                                 <div className="follow-name">
-                                    <span>Aremu Olakunle</span>
+                                    <span><Link to="/profile/id">Aremu Olakunle</Link></span>
                                     <span>Colwebdev</span>
                                 </div>
                             </div>
