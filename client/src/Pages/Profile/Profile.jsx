@@ -14,10 +14,8 @@ const Profile=()=>{
             <div>
                 <NavLink to="gamer-stat">Gamer Stats</NavLink>
                 <NavLink to="/profile/id">General</NavLink>
-                <NavLink to="social">Socials</NavLink>
+                <NavLink to="socials">Socials</NavLink>
                 <NavLink to="team">Teams</NavLink>
-                <NavLink to="followers">Followers(200)</NavLink>
-                <NavLink to="following">Following(100)</NavLink>
                 <NavLink to="security">Security</NavLink>
             </div>
             <Outlet />

@@ -6,15 +6,12 @@ import { Link } from "react-router-dom"
 const ProfileTeam=()=>{
     const user={
         name:"Aremu Olakunle",
-        team:true
+        team:false
 
     }
     return(
         <div className="ProfileTeam">
-            <div className="y-line-wrapper">
-                <div className="y-line"></div>
-                <h2>Teams</h2>
-            </div>
+            
             <div>
                 {user.team?
                     <div className="team-card-wrapper">

@@ -36,7 +36,7 @@ function App() {
             <Route path='/profile/id' element={<Profile />} >
               <Route index element={<EditProfile />} />
               <Route path='security' element={<Security />} />
-              <Route path='social' element={<ProfileSocial />} />
+              <Route path='socials' element={<ProfileSocial />} />
               <Route path='team' element={<ProfileTeam />} />
             </Route>
             <Route path="team/team-name" element={<TeamDetails />}>

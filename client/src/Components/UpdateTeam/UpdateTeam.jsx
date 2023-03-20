@@ -21,7 +21,7 @@ const UpdateTeam=()=>{
     }
     return(
         <Popup
-            trigger={<span>Update Team</span>}
+            trigger={<span>Manage</span>}
             modal
         >
             {close=>(
@@ -36,6 +36,14 @@ const UpdateTeam=()=>{
                             <input className="hiddenInput" type="file" ref={imageRef}/>
                             <div className="input-container">
                                 <label>Team Name:</label>
+                                <input className="u-input" type="text" />
+                            </div>
+                            <div className="input-container">
+                                <label>Team Bio:</label>
+                                <input className="u-input" type="text" />
+                            </div>
+                            <div className="input-container">
+                                <label>Motto:</label>
                                 <input className="u-input" type="text" />
                             </div>
                             <div>
@@ -56,7 +64,7 @@ const UpdateTeam=()=>{
                                     />
                                 </div>
                             </div>
-                            <button type="submit" className="btn">Create Team</button>
+                            <button type="submit" className="btn">Update Team</button>
                             <button type="submit" className="danger-btn">Delete Team</button>
                         </form>
 

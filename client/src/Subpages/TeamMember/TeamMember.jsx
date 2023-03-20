@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 const TeamMember=()=>{
     return(
         <div className="TeamMember">
-            <div className="y-line-wrapper">
+            {/* <div className="y-line-wrapper">
                 <div className="y-line"></div>
                 <h2>Members</h2>
-            </div>
+            </div> */}
             <div className="member-card-wrapper">
                 <div className="member-card">
                     <Link to="/profile/id">
