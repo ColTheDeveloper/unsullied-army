@@ -8,8 +8,19 @@ const Profile=()=>{
             <div className="profile-card">
                 <img src={profile} alt="usernae" width="30"/>
                 <h2>Aremu Olakunle</h2>
-                <p>colakunleumaru@gmail.com</p>
                 <span>ColWebDev</span>
+                <div>
+                    <div className="follow-wrapper">
+                        <span>200</span>
+                        <span>Followers</span>
+                    </div>
+                    <div className="follower-line"/>
+                    <div className="follow-wrapper">
+                        <span>400</span>
+                        <span>Following</span>
+                    </div>
+                </div>
+                <button>Visitor Mode</button>
             </div>
             <div>
                 <NavLink to="gamer-stat">Gamer Stats</NavLink>
