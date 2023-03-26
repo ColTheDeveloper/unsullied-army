@@ -17,6 +17,7 @@ const TeamDetails=()=>{
             <div>
                 <NavLink to="/team/team-name">Events</NavLink>
                 <NavLink to="members">Members</NavLink>
+                <NavLink to="social">Socials</NavLink>
                 <UpdateTeam />
             </div>
             <Outlet />

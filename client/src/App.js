@@ -17,6 +17,7 @@ import 'reactjs-popup/dist/index.css';
 import TeamDetails from './Pages/TeamDetails/TeamDetails';
 import TeamEvent from './Subpages/TeamEvent/TeamEvent';
 import TeamMember from './Subpages/TeamMember/TeamMember';
+import TeamSocial from './Subpages/TeamSocial/TeamSocial';
 
 
 library.add(faBarsStaggered, faBars,faEye,faEyeSlash,faCaretDown);
@@ -42,6 +43,7 @@ function App() {
             <Route path="team/team-name" element={<TeamDetails />}>
               <Route index element={<TeamEvent />} />
               <Route path='members' element={<TeamMember />} />
+              <Route path='social' element={<TeamSocial />} />
             </Route>
           </Route>
         </Routes>

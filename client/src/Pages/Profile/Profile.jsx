@@ -10,7 +10,7 @@ const Profile=()=>{
             <div className="profile-card">
                 <img src={profile} alt="usernae" width="30"/>
                 <h2>Aremu Olakunle</h2>
-                <p><span>Colakunleumaru@gmail.com</span></p>
+                {/* <p><span>Colakunleumaru@gmail.com</span></p> */}
                 <span>ColWebDev</span>
                 <div>
                     <Follower />

@@ -1,6 +1,6 @@
-import "./ProfileSocial.css"
+import "./TeamSocial.css"
 
-const ProfileSocial=()=>{
+const TeamSocial=()=>{
     return(
         <div className="EditProfile">
             <form>
@@ -26,7 +26,7 @@ const ProfileSocial=()=>{
                     <label>Facebook:</label>
                     <input 
                         type="text" 
-                        placeholder="https://www.facebook.com/"
+                        placeholder="https://www.Facebook.com/"
                         value="https://www.facebook.com/"     
                         className="u-input"                            
                     />
@@ -35,7 +35,7 @@ const ProfileSocial=()=>{
                     <label>Tiktok:</label>
                     <input 
                         type="text" 
-                        placeholder="https://www.tiktok.com/"
+                        placeholder="https://www.tiktok.com/@"
                         value="https://www.tiktok.com/@"     
                         className="u-input"                            
                     />
@@ -50,17 +50,16 @@ const ProfileSocial=()=>{
                     />
                 </div>
                 <div className="input-container">
-                    <label>Twitch:</label>
+                    <label>Boardsider:</label>
                     <input 
                         type="text" 
-                        placeholder="https://www.Twitch.com/"
-                        value="https://www.Twitch.com/"     
+                        placeholder="https://www.boardsider.com/"
+                        value="https://www.boardsider.com/"     
                         className="u-input"                            
                     />
                 </div>
             </form>
-
         </div>
     )
 }
-export default ProfileSocial;
+export default TeamSocial

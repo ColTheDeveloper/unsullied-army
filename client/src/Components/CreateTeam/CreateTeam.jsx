@@ -37,6 +37,14 @@ const CreateTeam=()=>{
                                 <label>Team Name:</label>
                                 <input className="u-input" type="text" />
                             </div>
+                            <div className="input-container">
+                                <label>Team Bio:</label>
+                                <input className="u-input" type="text" />
+                            </div>
+                            <div className="input-container">
+                                <label>Motto:</label>
+                                <input className="u-input" type="text" />
+                            </div>
                             <div>
                                 <label>Team Game:</label>
                                 <select>
