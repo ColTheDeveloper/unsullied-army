@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ToastContainer, toast } from 'react-toastify';
 import { Link } from "react-router-dom";
 import countries from "../../data/countries.json";
+import { registerUser } from "../../api/userRequest";
 
 
 const Register=()=>{
@@ -12,7 +13,7 @@ const Register=()=>{
     const [isSelcted, setSelected]=useState(false)
     const [isAfrica, setIsAfrica]=useState(true)
     const [isLoading, setIsLoading]= useState(true)
-    const [data,setData]=useState({
+    const [formData,setFormData]=useState({
         first_name:"",
         Other_Name:"",
         surname:"",
@@ -27,7 +28,7 @@ const Register=()=>{
     })
 
     const handleChange=(e)=>{
-        setData({...data,[e.target.name]:e.target.value})
+        setFormData({...formData,[e.target.name]:e.target.value})
     }
 
     const handleCountry=(e)=>{
@@ -49,29 +50,36 @@ const Register=()=>{
     const handleShowPassword=()=>{
         setShowPassword(!showPassword)
     }
-    const handleSubmit=(e)=>{
+    const handleSubmit= async(e)=>{
         setIsLoading(true)
         e.preventDefault()
         const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{7,40}$/;
 
-        if(data.first_name==="" ||data.Other_Name==="" ||data.surname==="" ||
-        data.email==="" || data.gender==="" || data.username==="" || data.dob==="" ||
-        data.country==="" || data.confirmPassword==="" || data.password===""){
+        if(formData.first_name==="" ||formData.Other_Name==="" ||formData.surname==="" ||
+        formData.email==="" || formData.gender==="" || formData.username==="" || formData.dob==="" ||
+        formData.country==="" || formData.confirmPassword==="" || formData.password===""){
             toast.error("Fields can't be empty")
             setIsLoading(false)
             return;
         }
-        if(data.password !== data.confirmPassword){
+        if(formData.password !== formData.confirmPassword){
             toast.error("password mismatch")
             setIsLoading(false)
             return;
         }
-        if(!data.password.match(passw)){
+        if(!formData.password.match(passw)){
             toast.error("Password must have an Upper Case, Lower Case, Number and Symbol")
             setIsLoading(false)
             return;
         }
-        console.log(data)
+
+        try {
+            const {data}=await registerUser(formData)
+            console.log(data)
+        } catch (error) {
+            
+        }
+        
     }
     return(
         <>
@@ -86,7 +94,7 @@ const Register=()=>{
                             placeholder="John"     
                             name="first_name"
                             onChange={handleChange}
-                            value={data.first_name}
+                            value={formData.first_name}
                             className="u-input"     
                             required                       
                         />
@@ -98,7 +106,7 @@ const Register=()=>{
                             placeholder="Jane" 
                             name="Other_Name"
                             onChange={handleChange}
-                            value={data.Other_Name}      
+                            value={formData.Other_Name}      
                             className="u-input"     
                             required                     
                         />
@@ -110,7 +118,7 @@ const Register=()=>{
                             placeholder="Doe"
                             name="surname"
                             onChange={handleChange}
-                            value={data.surname}       
+                            value={formData.surname}       
                             className="u-input"  
                             required                        
                         />
@@ -122,7 +130,7 @@ const Register=()=>{
                             placeholder="JohnDoe200"
                             name="username"
                             onChange={handleChange}
-                            value={data.username}      
+                            value={formData.username}      
                             className="u-input" 
                             required                          
                         />
@@ -134,7 +142,7 @@ const Register=()=>{
                             placeholder="example@domain.com"
                             name="email"
                             onChange={handleChange}
-                            value={data.email}   
+                            value={formData.email}   
                             className="u-input"   
                             required                           
                         />
@@ -142,7 +150,7 @@ const Register=()=>{
                     <div className="person">
                         <div>
                             <label>Gender:</label>
-                            <select name="gender" onChange={(e)=>data.gender=e.target.value} className="u-input">
+                            <select name="gender" onChange={(e)=>formData.gender=e.target.value} className="u-input">
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
@@ -154,7 +162,7 @@ const Register=()=>{
                                 max="2007-01-01"
                                 name="dob"
                                 onChange={handleChange}
-                                value={data.dob}
+                                value={formData.dob}
                                 className="u-input"          
                                 required                       
                             />
@@ -180,7 +188,7 @@ const Register=()=>{
                         />&nbsp;Other &nbsp; &nbsp;
                         {isSelcted?
                             isAfrica?
-                            <select name="country" onChange={(e)=>data.country=e.target.value}>
+                            <select name="country" onChange={(e)=>formData.country=e.target.value}>
                                 {africanCountries.map((names)=>{
                                     return(
                                         <option key={names.name} value={names.name}>{names.name}</option>
@@ -189,7 +197,7 @@ const Register=()=>{
 
                             </select>
                             :
-                            <select name="country" onChange={(e)=>data.country=e.target.value} value={data.country}>
+                            <select name="country" onChange={(e)=>formData.country=e.target.value} value={formData.country}>
                                 {otherCountries.map((names)=>{
                                     return(
                                         <option key={names.name} value={names.name}>{names.name}</option>
@@ -209,7 +217,7 @@ const Register=()=>{
                                 placeholder={showPassword?"password":"********"}  
                                 name="password"
                                 onChange={handleChange}
-                                value={data.password}
+                                value={formData.password}
                                 className="u-input"         
                                 required                      
                             />
@@ -225,7 +233,7 @@ const Register=()=>{
                                 placeholder={showPassword?"password":"********"}
                                 name="confirmPassword"
                                 onChange={handleChange}
-                                value={data.confirmPassword}  
+                                value={formData.confirmPassword}  
                                 className="u-input"     
                                 required                          
                             />
