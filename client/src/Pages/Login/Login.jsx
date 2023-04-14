@@ -5,6 +5,16 @@ import "./Login.css"
 
 const Login=()=>{
     const [showPassword, setShowPassword]=useState(false)
+    const [data, setData]=useState({
+        email:"",
+        username:"",
+        password:""
+    })
+    
+    const handleChange=(e)=>{
+        setData({...data,[e.target.name]:e.target.value})
+    }
+    
 
     const handleShowPassword=()=>{
         setShowPassword(!showPassword)
@@ -21,7 +31,10 @@ const Login=()=>{
                             id="email" 
                             type="text" 
                             placeholder="example@domain.com"  
-                            className="u-input"                               
+                            className="u-input" 
+                            onChange={handleChange}
+                            value={data.email}    
+                            required                          
                         />
                     </div>
                     <div className="input-container">
@@ -31,7 +44,10 @@ const Login=()=>{
                             <input 
                                 type={showPassword?"text":"password"} 
                                 placeholder={showPassword?"password":"********"}  
-                                className="u-input"                               
+                                value={data.password}
+                                onChange={handleChange}
+                                className="u-input"  
+                                required                             
                             />
                         </div>
                     </div>

@@ -11,6 +11,7 @@ const Register=()=>{
     const [passwordAvailable]=useState(true)
     const [isSelcted, setSelected]=useState(false)
     const [isAfrica, setIsAfrica]=useState(true)
+    const [isLoading, setIsLoading]= useState(true)
     const [data,setData]=useState({
         first_name:"",
         Other_Name:"",
@@ -49,21 +50,25 @@ const Register=()=>{
         setShowPassword(!showPassword)
     }
     const handleSubmit=(e)=>{
+        setIsLoading(true)
         e.preventDefault()
-        const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,40}$/;
+        const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{7,40}$/;
 
         if(data.first_name==="" ||data.Other_Name==="" ||data.surname==="" ||
         data.email==="" || data.gender==="" || data.username==="" || data.dob==="" ||
         data.country==="" || data.confirmPassword==="" || data.password===""){
             toast.error("Fields can't be empty")
+            setIsLoading(false)
             return;
         }
         if(data.password !== data.confirmPassword){
             toast.error("password mismatch")
+            setIsLoading(false)
             return;
         }
         if(!data.password.match(passw)){
             toast.error("Password must have an Upper Case, Lower Case, Number and Symbol")
+            setIsLoading(false)
             return;
         }
         console.log(data)
@@ -82,7 +87,8 @@ const Register=()=>{
                             name="first_name"
                             onChange={handleChange}
                             value={data.first_name}
-                            className="u-input"                            
+                            className="u-input"     
+                            required                       
                         />
                     </div>
                     <div className="input-container">
@@ -93,7 +99,8 @@ const Register=()=>{
                             name="Other_Name"
                             onChange={handleChange}
                             value={data.Other_Name}      
-                            className="u-input"                          
+                            className="u-input"     
+                            required                     
                         />
                     </div>
                     <div className="input-container">
@@ -104,7 +111,8 @@ const Register=()=>{
                             name="surname"
                             onChange={handleChange}
                             value={data.surname}       
-                            className="u-input"                          
+                            className="u-input"  
+                            required                        
                         />
                     </div>
                     <div className="input-container">
@@ -115,7 +123,8 @@ const Register=()=>{
                             name="username"
                             onChange={handleChange}
                             value={data.username}      
-                            className="u-input"                           
+                            className="u-input" 
+                            required                          
                         />
                     </div>
                     <div className="input-container">
@@ -126,7 +135,8 @@ const Register=()=>{
                             name="email"
                             onChange={handleChange}
                             value={data.email}   
-                            className="u-input"                              
+                            className="u-input"   
+                            required                           
                         />
                     </div>
                     <div className="person">
@@ -145,7 +155,8 @@ const Register=()=>{
                                 name="dob"
                                 onChange={handleChange}
                                 value={data.dob}
-                                className="u-input"                                 
+                                className="u-input"          
+                                required                       
                             />
                         </div>
 
@@ -199,7 +210,8 @@ const Register=()=>{
                                 name="password"
                                 onChange={handleChange}
                                 value={data.password}
-                                className="u-input"                               
+                                className="u-input"         
+                                required                      
                             />
                         </div>
                     </div>
@@ -214,12 +226,18 @@ const Register=()=>{
                                 name="confirmPassword"
                                 onChange={handleChange}
                                 value={data.confirmPassword}  
-                                className="u-input"                               
+                                className="u-input"     
+                                required                          
                             />
                         </div>
                         </div>
                     }
-                    <button className="btn" type="submit">Sign Up</button>
+                    {isLoading?
+                        <button className="btn" type="submit">Loading...</button>
+                    :
+                        <button className="btn" type="submit">Sign Up</button>
+                    }
+                    
                 </form>
                 <h3>Already have an Account? <Link>Sign In</Link></h3>
 
