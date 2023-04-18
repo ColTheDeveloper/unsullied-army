@@ -2,7 +2,7 @@ import "./Register.css"
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ToastContainer, toast } from 'react-toastify';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import countries from "../../data/countries.json";
 //import { registerUser } from "../../api/userRequest";
 import { UAState } from "../../Context/uaDetailsProvider";
@@ -15,7 +15,8 @@ const Register=()=>{
     const [isSelcted, setSelected]=useState(false)
     const [isAfrica, setIsAfrica]=useState(true)
     const [isLoading, setIsLoading]= useState(false)
-    const {setUser}=UAState()
+    const {user,setUser}=UAState()
+    const navigate=useNavigate()
     const [emptyError,setEmptyError]=useState(false)
     const [passwordMismatchError,setPasswordMismatchError]=useState(false)
     const [passwordNotComplete,setPasswordNotComplete]=useState(false)
@@ -59,20 +60,24 @@ const Register=()=>{
 
     const handleChange=(e)=>{
         setFormData({...formData,[e.target.name]:e.target.value})
-        
     }
 
-    const handleCountry=(e)=>{
-        setSelected(true)
-        if(e.target.value==="false"){
-            setIsAfrica(false)
+    // const handleCountry=(e)=>{
+    //     setSelected(true)
+    //     if(e.target.value==="false"){
+    //         setIsAfrica(false)
             
-        }
-        if(e.target.value==="true"){
-            setIsAfrica(true)
-        }
+    //     }
+    //     if(e.target.value==="true"){
+    //         setIsAfrica(true)
+    //     }
         
-    }
+    // }
+    useEffect(()=>{
+        if(user){
+            navigate("/")
+        }
+    },[navigate,user])
 
     const africanCountries=Object.values(countries).filter(key=>key.continent.includes("AF"))
 
@@ -183,7 +188,7 @@ const Register=()=>{
                     <div className="input-container">
                         <label>Email Address:</label>
                         <input 
-                            type="text" 
+                            type="email" 
                             placeholder="example@domain.com"
                             name="email"
                             onChange={handleChange}
@@ -222,8 +227,8 @@ const Register=()=>{
                             type="radio" 
                             value="false"   
                             name="country"
-                            onClick={(e)=>{e.target.value="true"; formData.country="Angola"}}
-                            onChange={handleCountry}
+                            onClick={(e)=>{e.target.value="true"; formData.country="Angola"; setSelected(true); setIsAfrica(true)}}
+                            
                             className="u-input" 
                                                       
                         />&nbsp;African &nbsp; &nbsp;
@@ -231,8 +236,8 @@ const Register=()=>{
                             type="radio"
                             value="false"
                             name="country"
-                            onChange={handleCountry}
-                            onClick={(e)=>{e.target.value="true"; formData.country="Andorra"}}
+                        
+                            onClick={(e)=>{e.target.value="true"; formData.country="Andorra";setSelected(true); setIsAfrica(false)}}
                             className="u-input"
                         />&nbsp;Other &nbsp; &nbsp;
                         {isSelcted?
@@ -273,7 +278,7 @@ const Register=()=>{
                             />
                             
                         </div>
-                        {passwordNotComplete?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> Password must have at least an alphabet,number and symbol</p>:""}
+                        {passwordNotComplete?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> The password must be at least 8 characters long. The password must consist of an Upper Case Letter, a Lower Case Letter, a Number and a Symbol.</p>:""}
                         {emptyError&&formData.password===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> Password Field can't be Empty</p>:""}
                         
                     </div>

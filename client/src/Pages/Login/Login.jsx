@@ -1,11 +1,14 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Login.css"
+import { UAState } from "../../Context/uaDetailsProvider";
 
 const Login=()=>{
     const [showPassword, setShowPassword]=useState(false)
+    const {user}=UAState()
     const [setIsLoading]=useState(false)
+    const navigate=useNavigate()
     const [formData, setFormData]=useState({
         email:"",
         password:""
@@ -19,6 +22,12 @@ const Login=()=>{
     const handleShowPassword=()=>{
         setShowPassword(!showPassword)
     }
+
+    useEffect(()=>{
+        if(user){
+            navigate("/")
+        }
+    },[navigate,user])
 
     const handleSubmit=()=>{
         setIsLoading(true)

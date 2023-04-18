@@ -1,10 +1,16 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const UAContext= createContext()
 
 
 const UADetailsProvider=({children})=>{
-    const [user,setUser]=useState(1234)
+    const [user,setUser]=useState(null)
+
+    useEffect(()=>{
+        const userInfo=JSON.parse(localStorage.getItem("userInfo"))
+        setUser(userInfo)
+        console.log(userInfo)
+    },[])
 
 
 

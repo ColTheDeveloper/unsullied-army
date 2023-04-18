@@ -3,15 +3,17 @@ import profile from "../../Images/profile.jpg"
 import { NavLink, Outlet } from "react-router-dom"
 import Follower from "../../Components/Follower/Follower"
 import Following from "../../Components/Following/following"
+import { UAState } from "../../Context/uaDetailsProvider"
 
 const Profile=()=>{
+    const {user}=UAState()
     return(
         <div className="Profile">
             <div className="profile-card">
                 <img src={profile} alt="usernae" width="30"/>
-                <h2>Aremu Olakunle</h2>
+                <h2>{user.first_name} {user.Other_Name} {user.surname}</h2>
                 {/* <p><span>Colakunleumaru@gmail.com</span></p> */}
-                <span>ColWebDev</span>
+                <span>{user.username}</span>
                 <div>
                     <Follower />
                     <div className="follower-line"/>

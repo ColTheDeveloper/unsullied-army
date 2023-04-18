@@ -6,18 +6,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import unsulliedLogo from "../../Images/Logo.PNG"
 // import profile from "../../Images/profile.jpg"
 import { useState } from "react"
+import { UAState } from "../../Context/uaDetailsProvider"
 
 
 
 const Navbar=()=>{
     const [navIsOpen, setNavIsOpen]=useState(false)
-    const [user,setUser]=useState(true)
+    const {user,setUser}=UAState()
 
     const handleNav=()=>{
         setNavIsOpen(!navIsOpen)
     }
     const handleLogout=()=>{
-        setUser(!user)
+        setUser(null)
+        localStorage.removeItem("userInfo")
 
     }
     return(
