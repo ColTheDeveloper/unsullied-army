@@ -36,6 +36,9 @@ label{
   overflow-x: hidden;
 }
 .btn{
+  display: flex;
+  justify-content: center;
+  gap: .4rem;
   background:var(--gradient-background-color) ;
   color: var(--text-color);
   border: 1px solid var(--green-text-color);
@@ -49,6 +52,9 @@ label{
   color: var(--green-text-color);
   background-color: transparent;
 
+}
+.disabled-btn{
+  background-color: transparent;
 }
 .danger-btn{
   background:var(--danger-btn-color) ;
@@ -68,6 +74,13 @@ label{
   padding: .3rem;
   border-radius: 3px;
   border: none;
+}
+.err-input{
+  border:2px solid  rgb(245, 31, 31);
+}
+.err-text{
+  font-size: .8rem;
+  color: rgb(245, 31, 31);
 }
 .u-input:focus{
   border: 1px solid var(--gradient-background-color);

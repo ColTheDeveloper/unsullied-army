@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // FontAwesome icons
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBarsStaggered, faBars, faEye,faEyeSlash, faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faBarsStaggered, faBars, faEye,faEyeSlash, faCaretDown,faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import EditProfile from './Pages/EditProfile/EditProfile';
 import Security from './Pages/Security/Security';
 import ProfileSocial from './Subpages/ProfileSocial/ProfileSocial';
@@ -21,7 +21,7 @@ import TeamMember from './Subpages/TeamMember/TeamMember';
 import TeamSocial from './Subpages/TeamSocial/TeamSocial';
 
 
-library.add(faBarsStaggered, faBars,faEye,faEyeSlash,faCaretDown);
+library.add(faBarsStaggered, faBars,faEye,faEyeSlash,faCaretDown,faCircleExclamation);
 
 function App() {
   return (

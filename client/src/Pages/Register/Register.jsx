@@ -1,18 +1,24 @@
 import "./Register.css"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ToastContainer, toast } from 'react-toastify';
 import { Link } from "react-router-dom";
 import countries from "../../data/countries.json";
-import { registerUser } from "../../api/userRequest";
+//import { registerUser } from "../../api/userRequest";
+import { UAState } from "../../Context/uaDetailsProvider";
+import loadingGif from "../../Images/loading.gif"
 
 
 const Register=()=>{
     const [showPassword, setShowPassword]=useState(false)
-    const [passwordAvailable]=useState(true)
+    const [passwordAvailable,setPasswordAvailable]=useState(false)
     const [isSelcted, setSelected]=useState(false)
     const [isAfrica, setIsAfrica]=useState(true)
-    const [isLoading, setIsLoading]= useState(true)
+    const [isLoading, setIsLoading]= useState(false)
+    const {setUser}=UAState()
+    const [emptyError,setEmptyError]=useState(false)
+    const [passwordMismatchError,setPasswordMismatchError]=useState(false)
+    const [passwordNotComplete,setPasswordNotComplete]=useState(false)
     const [formData,setFormData]=useState({
         first_name:"",
         Other_Name:"",
@@ -27,8 +33,33 @@ const Register=()=>{
 
     })
 
+    useEffect(()=>{
+        //if password input doesn't have anything in it,it won't show confirm password input
+        //but if the opposite,it will show confirm password input
+        if(formData.password!==""){
+            setPasswordAvailable(true)
+        }else{
+            setPasswordAvailable(false)
+        }
+    },[formData.password])
+
+    useEffect(()=>{
+        const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{7,40}$/;
+        if(formData.password.match(passw)){
+            setPasswordNotComplete(false)
+        }
+    },[formData.password])
+
+    useEffect(()=>{
+        if(formData.password===formData.confirmPassword){
+            setPasswordMismatchError(false)
+        }
+    },[formData.password ,formData.confirmPassword])
+
+
     const handleChange=(e)=>{
         setFormData({...formData,[e.target.name]:e.target.value})
+        
     }
 
     const handleCountry=(e)=>{
@@ -58,25 +89,35 @@ const Register=()=>{
         if(formData.first_name==="" ||formData.Other_Name==="" ||formData.surname==="" ||
         formData.email==="" || formData.gender==="" || formData.username==="" || formData.dob==="" ||
         formData.country==="" || formData.confirmPassword==="" || formData.password===""){
-            toast.error("Fields can't be empty")
+            setEmptyError(true)
+            toast.error("Registration Failed")
             setIsLoading(false)
             return;
         }
         if(formData.password !== formData.confirmPassword){
-            toast.error("password mismatch")
+            setPasswordMismatchError(true)
+            toast.error("Registration Failed")
             setIsLoading(false)
             return;
         }
         if(!formData.password.match(passw)){
-            toast.error("Password must have an Upper Case, Lower Case, Number and Symbol")
+            setPasswordNotComplete(true)
+            toast.error("Registration Failed")
             setIsLoading(false)
             return;
         }
 
         try {
-            const {data}=await registerUser(formData)
-            console.log(data)
+            //const {data}=await registerUser(formData)
+            setIsLoading(false)
+            console.log(formData)
+            setUser(formData)
+            localStorage.setItem("userInfo",JSON.stringify(formData))
+            toast.success("Registration Successful")
+
         } catch (error) {
+            toast.error("Registration Failed")
+            setIsLoading(false)
             
         }
         
@@ -95,9 +136,11 @@ const Register=()=>{
                             name="first_name"
                             onChange={handleChange}
                             value={formData.first_name}
-                            className="u-input"     
-                            required                       
+                            className={emptyError&&formData.first_name===""?"u-input err-input": "u-input"}     
+                                                   
                         />
+                        {emptyError&&formData.first_name===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> First Name Field can't be Empty</p>:""}
+                        
                     </div>
                     <div className="input-container">
                         <label>Other Name:</label>
@@ -107,9 +150,10 @@ const Register=()=>{
                             name="Other_Name"
                             onChange={handleChange}
                             value={formData.Other_Name}      
-                            className="u-input"     
-                            required                     
+                            className={emptyError&&formData.Other_Name===""?"u-input err-input": "u-input"} 
                         />
+                        {emptyError&&formData.Other_Name===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> Other Name Field can't be Empty</p>:""}
+
                     </div>
                     <div className="input-container">
                         <label>Last Name:</label>
@@ -119,9 +163,9 @@ const Register=()=>{
                             name="surname"
                             onChange={handleChange}
                             value={formData.surname}       
-                            className="u-input"  
-                            required                        
+                            className={emptyError&&formData.surname===""?"u-input err-input": "u-input"}  
                         />
+                        {emptyError&&formData.surname===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> Last Name Field can't be Empty</p>:""}
                     </div>
                     <div className="input-container">
                         <label>Username:</label>
@@ -131,9 +175,10 @@ const Register=()=>{
                             name="username"
                             onChange={handleChange}
                             value={formData.username}      
-                            className="u-input" 
-                            required                          
+                            className={emptyError&&formData.username===""?"u-input err-input": "u-input"}
+                                                      
                         />
+                        {emptyError&&formData.username===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" />  Username Field can't be Empty</p>:""}
                     </div>
                     <div className="input-container">
                         <label>Email Address:</label>
@@ -143,9 +188,10 @@ const Register=()=>{
                             name="email"
                             onChange={handleChange}
                             value={formData.email}   
-                            className="u-input"   
-                            required                           
+                            className={emptyError&&formData.email===""?"u-input err-input": "u-input"}
+                                                       
                         />
+                        {emptyError&&formData.email===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> Email Address Field can't be Empty</p>:""}
                     </div>
                     <div className="person">
                         <div>
@@ -154,6 +200,7 @@ const Register=()=>{
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
+
                         </div>
                         <div>
                             <label>DOB:</label>
@@ -164,17 +211,18 @@ const Register=()=>{
                                 onChange={handleChange}
                                 value={formData.dob}
                                 className="u-input"          
-                                required                       
+                                                       
                             />
+                            {emptyError&&formData.dob===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> DOB Field can't be Empty</p>:""}
                         </div>
-
                     </div>
                     <div>
                         <label>Country:</label>
                         <input 
                             type="radio" 
-                            value="true"   
+                            value="false"   
                             name="country"
+                            onClick={(e)=>{e.target.value="true"; formData.country="Angola"}}
                             onChange={handleCountry}
                             className="u-input" 
                                                       
@@ -184,6 +232,7 @@ const Register=()=>{
                             value="false"
                             name="country"
                             onChange={handleCountry}
+                            onClick={(e)=>{e.target.value="true"; formData.country="Andorra"}}
                             className="u-input"
                         />&nbsp;Other &nbsp; &nbsp;
                         {isSelcted?
@@ -207,6 +256,7 @@ const Register=()=>{
                             </select>
                         :""    
                         }
+                        {emptyError&&formData.country===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> Country Field can't be Empty</p>:""}
                     </div>
                     <div className="input-container">
                         <label htmlFor="password">Password:</label>
@@ -218,34 +268,37 @@ const Register=()=>{
                                 name="password"
                                 onChange={handleChange}
                                 value={formData.password}
-                                className="u-input"         
-                                required                      
+                                className={(emptyError ||passwordNotComplete)&&formData.password===""?"u-input err-input": "u-input"} 
+                                                      
                             />
+                            
                         </div>
+                        {passwordNotComplete?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> Password must have at least an alphabet,number and symbol</p>:""}
+                        {emptyError&&formData.password===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> Password Field can't be Empty</p>:""}
+                        
                     </div>
                     {passwordAvailable &&
                         <div className="input-container">
-                        <label htmlFor="password">Confirm Password:</label>
-                        <div className="pass">
-                            <FontAwesomeIcon onClick={handleShowPassword} icon={showPassword?"fa-solid fa-eye":"fa-solid fa-eye-slash"} />
-                            <input 
-                                type={showPassword?"text":"password"} 
-                                placeholder={showPassword?"password":"********"}
-                                name="confirmPassword"
-                                onChange={handleChange}
-                                value={formData.confirmPassword}  
-                                className="u-input"     
-                                required                          
-                            />
+                            <label htmlFor="password">Confirm Password:</label>
+                            <div className="pass">
+                                <FontAwesomeIcon onClick={handleShowPassword} icon={showPassword?"fa-solid fa-eye":"fa-solid fa-eye-slash"} />
+                                <input 
+                                    type={showPassword?"text":"password"} 
+                                    placeholder={showPassword?"password":"********"}
+                                    name="confirmPassword"
+                                    onChange={handleChange}
+                                    value={formData.confirmPassword}  
+                                    className={(emptyError||passwordMismatchError)&&formData.confirmPassword===""?"u-input err-input": "u-input"}
+                                                              
+                                />
+                            </div>
+                            {passwordMismatchError?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> Password doesn't match with Confirm Password</p>:""}
+                            {emptyError&&formData.confirmPassword===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> Confirm Password Field can't be Empty</p>:""}
+                            
                         </div>
-                        </div>
+                        
                     }
-                    {isLoading?
-                        <button className="btn" type="submit">Loading...</button>
-                    :
-                        <button className="btn" type="submit">Sign Up</button>
-                    }
-                    
+                    <button className={isLoading?"btn disabled-btn": "btn"} disabled={isLoading?true:false} type="submit">{isLoading &&<img src={loadingGif} alt="loading" width="15" />}Sign Up</button>
                 </form>
                 <h3>Already have an Account? <Link>Sign In</Link></h3>
 

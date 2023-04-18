@@ -5,19 +5,25 @@ import "./Login.css"
 
 const Login=()=>{
     const [showPassword, setShowPassword]=useState(false)
-    const [data, setData]=useState({
+    const [isLoading,setIsLoading]=useState(false)
+    const [formData, setFormData]=useState({
         email:"",
-        username:"",
         password:""
     })
     
     const handleChange=(e)=>{
-        setData({...data,[e.target.name]:e.target.value})
+        setFormData({...formData,[e.target.name]:e.target.value})
     }
     
 
     const handleShowPassword=()=>{
         setShowPassword(!showPassword)
+    }
+
+    const handleSubmit=()=>{
+        setIsLoading(true)
+        console.log(formData)
+        
     }
     return(
         <div className="Login">
@@ -30,10 +36,11 @@ const Login=()=>{
                         <input 
                             id="email" 
                             type="text" 
-                            placeholder="example@domain.com"  
+                            placeholder="example@domain.com" 
+                            name="email" 
                             className="u-input" 
                             onChange={handleChange}
-                            value={data.email}    
+                            value={formData.email}    
                             required                          
                         />
                     </div>
@@ -44,14 +51,15 @@ const Login=()=>{
                             <input 
                                 type={showPassword?"text":"password"} 
                                 placeholder={showPassword?"password":"********"}  
-                                value={data.password}
+                                value={formData.password}
                                 onChange={handleChange}
+                                name="password"
                                 className="u-input"  
                                 required                             
                             />
                         </div>
                     </div>
-                    <button className="btn" type="submit">Sign In</button>
+                    <button className="btn" onClick={handleSubmit} type="submit">Sign In</button>
                 </form>
                 <h3>Forgot Password? <Link>Reset</Link></h3>
                 <h3>Don't have an Account? <Link to="/register">Sign Up</Link></h3>
