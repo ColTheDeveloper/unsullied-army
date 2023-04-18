@@ -4,15 +4,12 @@ const UAContext= createContext()
 
 
 const UADetailsProvider=({children})=>{
-    const [user,setUser]=useState(null)
+    const [user,setUser]=useState({})
 
     useEffect(()=>{
         const userInfo=JSON.parse(localStorage.getItem("userInfo"))
         setUser(userInfo)
-        console.log(userInfo)
     },[])
-
-
 
     return(
         <UAContext.Provider value={{user,setUser}} >

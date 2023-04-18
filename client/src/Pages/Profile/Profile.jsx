@@ -1,4 +1,5 @@
 import "./Profile.css"
+//import { useEffect } from "react"
 import profile from "../../Images/profile.jpg"
 import { NavLink, Outlet } from "react-router-dom"
 import Follower from "../../Components/Follower/Follower"
@@ -7,6 +8,8 @@ import { UAState } from "../../Context/uaDetailsProvider"
 
 const Profile=()=>{
     const {user}=UAState()
+
+    
     return(
         <div className="Profile">
             <div className="profile-card">

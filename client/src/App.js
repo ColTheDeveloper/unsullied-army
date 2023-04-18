@@ -1,3 +1,4 @@
+//import { UAState } from './Context/uaDetailsProvider';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Layout from './Components/Layout/Layout';
@@ -19,6 +20,7 @@ import TeamDetails from './Pages/TeamDetails/TeamDetails';
 import TeamEvent from './Subpages/TeamEvent/TeamEvent';
 import TeamMember from './Subpages/TeamMember/TeamMember';
 import TeamSocial from './Subpages/TeamSocial/TeamSocial';
+
 
 
 library.add(faBarsStaggered, faBars,faEye,faEyeSlash,faCaretDown,faCircleExclamation);
