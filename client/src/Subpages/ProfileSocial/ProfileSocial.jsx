@@ -1,12 +1,16 @@
-//import { useState } from "react";
+import { useState } from "react";
 import "./ProfileSocial.css"
-//import { UAState } from "../../Context/uaDetailsProvider";
+import { UAState } from "../../Context/uaDetailsProvider";
 
 const ProfileSocial=()=>{
-    //const {user}=UAState()
-    //const [formmData, setFormData]=useState({
-    //
-    //})
+    const {user}=UAState()
+    const [formmData, setFormData]=useState({
+        instagram:user.instagram,
+        twitter:user.twitter,
+        facebook:user.facebook,
+        tiktok:user.tiktok,
+        youtube:user.youtube
+    })
     return(
         <div className="EditProfile">
             <form>
