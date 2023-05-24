@@ -13,8 +13,8 @@ const Profile=()=>{
     return(
         <div className="Profile">
             <div className="profile-card">
-                <img src={profile} alt="usernae" width="30"/>
-                <h2>{user.first_name} {user.Other_Name} {user.surname}</h2>
+                <img src={profile} alt={user.username} width="30"/>
+                <h2>{user.firstName} {user.otherName} {user.lastName}</h2>
                 {/* <p><span>Colakunleumaru@gmail.com</span></p> */}
                 <span>{user.username}</span>
                 <div>
@@ -22,7 +22,7 @@ const Profile=()=>{
                     <div className="follower-line"/>
                     <Following />
                 </div>
-                <button className="profile-action">Visitor Mode</button>
+                {/*<button className="profile-action">Visitor Mode</button>*/}
             </div>
             <div>
                 <NavLink to="gamer-stat">Gamer Stats</NavLink>
@@ -32,8 +32,7 @@ const Profile=()=>{
                 <NavLink to="security">Security</NavLink>
             </div>
             <Outlet />
-
         </div>
     )
 }
-export default Profile
+export default Profile;

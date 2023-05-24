@@ -5,9 +5,9 @@ import "./EditProfile.css"
 const EditProfile=()=>{
     const {user}=UAState()
     const [formData,setFormData]=useState({
-        first_name:user.first_name,
-        Other_Name:user.Other_Name,
-        surname:user.surname,
+        firstName:user.firstName,
+        otherName:user.otherName,
+        lastName:user.lastName,
         username:user.username,
         email:user.email,
         bio:user.bio
@@ -25,10 +25,10 @@ const EditProfile=()=>{
                     <input 
                         type="text" 
                         placeholder="John"  
-                        name="first_name"   
+                        name="firstName"   
                         className="u-input"  
                         onChange={handleChange} 
-                        value={formData.first_name}                         
+                        value={formData.firstName}                         
                     />
                 </div>
                 <div className="input-container">
@@ -37,9 +37,9 @@ const EditProfile=()=>{
                         type="text" 
                         placeholder="Jane"       
                         className="u-input" 
-                        name="Other_Name"
+                        name="otherName"
                         onChange={handleChange} 
-                        value={formData.Other_Name}                        
+                        value={formData.otherName}                        
                     />
                 </div>
                 <div className="input-container">
@@ -48,9 +48,9 @@ const EditProfile=()=>{
                         type="text" 
                         placeholder="Doe"       
                         className="u-input" 
-                        name="surname"
+                        name="lastName"
                         onChange={handleChange}  
-                        value={formData.surname}                        
+                        value={formData.lastName}                        
                     />
                 </div>
                 <div className="input-container">

@@ -1,0 +1,128 @@
+const bcrypt=require("bcrypt");
+const jwt=require("jsonwebtoken");
+const asyncHandler=require("express-async-handler")
+const userModel= require("../Models/userModel")
+
+
+const register=asyncHandler(async(req,res)=>{
+    const {password,username,email}=req.body
+
+    const userEmailExist= await userModel.findOne({email})
+
+    if(userEmailExist) return res.status(400).json({message:"Email Already Exist"})
+
+    const userUsernameExist= await userModel.findOne({username})
+
+    if(userUsernameExist) return res.status(400).json({message:"Username Already Exist"})
+    console.log(req.body)
+    const salt=await bcrypt.genSalt(10)
+
+    const hashPassword=await bcrypt.hash(password, salt)
+
+    console.log(req.body)
+
+    req.body.password= hashPassword
+
+    const newUser=new userModel(req.body)
+
+    await newUser.save()
+
+    const accessToken= jwt.sign(
+        {newUser},
+        process.env.ACCESS_TOKEN_SECRET,
+        {expiresIn:"1h"}
+    )
+
+    const refreshToken= jwt.sign(
+        {newUser},
+        process.env.REFRESH_TOKEN_SECRET,
+        {expiresIn:"1h"}
+    )
+
+    res.cookie("jwt",refreshToken,{
+        httpOnly:true,
+        secure:false,
+        sameSite:"None",
+        maxAge:60 * 60 *60 *1000
+    })
+
+    res.json(accessToken)
+
+})
+
+const login=asyncHandler(async(req,res)=>{
+    const {userIdentity,password}=req.body
+
+    const foundUser= await userModel.findOne({$or:[
+        {username:userIdentity},
+        {email:userIdentity}
+    ]}).exec()
+
+    if(!foundUser){
+        return res.status(401).json({message:"Email Address or Username doesn't exist"});
+    };
+
+    const match=await bcrypt.compare(password, foundUser.password)
+
+    if(!match) return res.status(401).json({message:"Wrong Password"});
+
+    const accessToken= jwt.sign(
+        {
+            foundUser
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        {expiresIn: "1h"}
+
+    )
+
+    const refreshToken= jwt.sign(
+        {foundUser},
+        process.env.REFRESH_TOKEN_SECRET,
+        {expiresIn:"1h"}
+    )
+
+    res.cookie("jwt",refreshToken,{
+        httpOnly:true, //accessable only by web server
+        secure:false, // https
+        sameSite: "None", //cross-site cookie
+        maxAge: 60 * 60 * 1000 //cookie expires in 20sec
+    })
+
+    res.json(accessToken)
+})
+
+const refresh=async(req,res)=>{
+    const cookies=req.cookies
+
+    if(!cookies?.jwt) return res.status(401).json({message:"Login Session Expired"})
+
+    const refreshToken= cookies.jwt
+
+    jwt.verify(refreshToken,process.env.REFRESH_TOKEN_SECRET,asyncHandler(async(err,decoded)=>{
+        if(err)return res.status(403).json({message:"Forbidden"})
+
+        const foundUser= await userModel.findOne({username: decoded.username})
+
+        if(!foundUser) return res.status(401).json({message:"Unauthorized"})
+
+        const accessToken=jwt.sign(
+            {foundUser},
+            process.env.ACCESS_TOKEN_SECRET,
+            {expiresIn:"10s"}
+        )
+
+        res.json(accessToken)
+    }))
+}
+
+const logout=(req,res)=>{
+    const cookies=req.cookies
+
+    if(!cookies?.jwt) return res.sendStatus(204)
+
+    res.clearCookie("jwt",{httpOnly:true ,sameSite:"None",secure: true})
+
+    res.json({message:"Cookie cleared"})
+}
+
+module.exports={login,refresh,logout,register}

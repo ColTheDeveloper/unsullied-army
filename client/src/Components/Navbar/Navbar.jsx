@@ -28,8 +28,8 @@ const Navbar=()=>{
             
             <nav style={navIsOpen?{right:"3%"}:{right:"-1000px"}}>
                 <NavLink to="/">Home</NavLink>
-                <NavLink to="teams">Teams</NavLink>
-                <NavLink to="about">About</NavLink>
+                <NavLink to="teams">Blog</NavLink>
+                <NavLink to="about">Recruit</NavLink>
                 <NavLink to="events">Events</NavLink>
                 {user?
                     <>

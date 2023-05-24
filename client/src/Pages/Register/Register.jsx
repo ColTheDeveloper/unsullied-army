@@ -4,9 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ToastContainer, toast } from 'react-toastify';
 import { Link, useNavigate } from "react-router-dom";
 import countries from "../../data/countries.json";
-//import { registerUser } from "../../api/userRequest";
+import { registerUser } from "../../api/userRequest";
 import { UAState } from "../../Context/uaDetailsProvider";
-import loadingGif from "../../Images/loading.gif"
+import loadingGif from "../../Images/mainLoading.gif"
+import jwt_decode from "jwt-decode";
 
 
 const Register=()=>{
@@ -21,9 +22,9 @@ const Register=()=>{
     const [passwordMismatchError,setPasswordMismatchError]=useState(false)
     const [passwordNotComplete,setPasswordNotComplete]=useState(false)
     const [formData,setFormData]=useState({
-        first_name:"",
-        Other_Name:"",
-        surname:"",
+        firstName:"",
+        otherName:"",
+        lastName:"",
         dob:"",
         email:"",
         country:"",
@@ -31,7 +32,6 @@ const Register=()=>{
         gender:"male",
         password:"",
         confirmPassword:""
-
     })
 
     useEffect(()=>{
@@ -91,7 +91,7 @@ const Register=()=>{
         e.preventDefault()
         const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{7,40}$/;
 
-        if(formData.first_name==="" ||formData.Other_Name==="" ||formData.surname==="" ||
+        if(formData.firstName==="" ||formData.otherName==="" ||formData.lastName==="" ||
         formData.email==="" || formData.gender==="" || formData.username==="" || formData.dob==="" ||
         formData.country==="" || formData.confirmPassword==="" || formData.password===""){
             setEmptyError(true)
@@ -113,12 +113,12 @@ const Register=()=>{
         }
 
         try {
-            //const {data}=await registerUser(formData)
-            setIsLoading(false)
-            console.log(formData)
-            setUser(formData)
-            localStorage.setItem("userInfo",JSON.stringify(formData))
+            const {data}=await registerUser(formData)
+            const {foundUser}=jwt_decode(data)
+            setUser(foundUser)
+            console.log(foundUser)
             toast.success("Registration Successful")
+            setIsLoading(false)
 
         } catch (error) {
             toast.error("Registration Failed")
@@ -138,13 +138,13 @@ const Register=()=>{
                         <input 
                             type="text" 
                             placeholder="John"     
-                            name="first_name"
+                            name="firstName"
                             onChange={handleChange}
-                            value={formData.first_name}
-                            className={emptyError&&formData.first_name===""?"u-input err-input": "u-input"}     
+                            value={formData.firstName}
+                            className={emptyError&&formData.firstName===""?"u-input err-input": "u-input"}     
                                                    
                         />
-                        {emptyError&&formData.first_name===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> First Name Field can't be Empty</p>:""}
+                        {emptyError&&formData.firstName===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> First Name Field can't be Empty</p>:""}
                         
                     </div>
                     <div className="input-container">
@@ -152,12 +152,12 @@ const Register=()=>{
                         <input 
                             type="text" 
                             placeholder="Jane" 
-                            name="Other_Name"
+                            name="otherName"
                             onChange={handleChange}
-                            value={formData.Other_Name}      
-                            className={emptyError&&formData.Other_Name===""?"u-input err-input": "u-input"} 
+                            value={formData.otherName}      
+                            className={emptyError&&formData.otherName===""?"u-input err-input": "u-input"} 
                         />
-                        {emptyError&&formData.Other_Name===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> Other Name Field can't be Empty</p>:""}
+                        {emptyError&&formData.otherName===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> Other Name Field can't be Empty</p>:""}
 
                     </div>
                     <div className="input-container">
@@ -165,12 +165,12 @@ const Register=()=>{
                         <input 
                             type="text" 
                             placeholder="Doe"
-                            name="surname"
+                            name="lastName"
                             onChange={handleChange}
-                            value={formData.surname}       
-                            className={emptyError&&formData.surname===""?"u-input err-input": "u-input"}  
+                            value={formData.lastName}       
+                            className={emptyError&&formData.lastName===""?"u-input err-input": "u-input"}  
                         />
-                        {emptyError&&formData.surname===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> Last Name Field can't be Empty</p>:""}
+                        {emptyError&&formData.lastName===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> Last Name Field can't be Empty</p>:""}
                     </div>
                     <div className="input-container">
                         <label>Username:</label>
@@ -305,7 +305,7 @@ const Register=()=>{
                     }
                     <button className={isLoading?"btn disabled-btn": "btn"} disabled={isLoading?true:false} type="submit">{isLoading &&<img src={loadingGif} alt="loading" width="15" />}Sign Up</button>
                 </form>
-                <h3>Already have an Account? <Link>Sign In</Link></h3>
+                <h3>Already have an Account? <Link to="/login">Sign In</Link></h3>
 
             </div>
         </div>
