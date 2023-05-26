@@ -14,12 +14,11 @@ const register=asyncHandler(async(req,res)=>{
     const userUsernameExist= await userModel.findOne({username})
 
     if(userUsernameExist) return res.status(400).json({message:"Username Already Exist"})
-    console.log(req.body)
+
     const salt=await bcrypt.genSalt(10)
 
     const hashPassword=await bcrypt.hash(password, salt)
 
-    console.log(req.body)
 
     req.body.password= hashPassword
 

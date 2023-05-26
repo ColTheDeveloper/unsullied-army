@@ -33,7 +33,7 @@
 .Login>div>h3>a:hover{
     color: var(--green-hover-color);
 }
-.pass{
+/* .pass{
     position: relative;
 }
 .pass>svg{
@@ -41,7 +41,7 @@
     bottom: 20%;
     right: 3%;
     color: black;
-}
+} */
 .pass>input{
     width: 100%;
 }

@@ -5,6 +5,7 @@ import "./Login.css"
 import { UAState } from "../../Context/uaDetailsProvider";
 import { loginUser } from "../../api/userRequest";
 import loadingGif from "../../Images/mainLoading.gif"
+import loadingGif3 from "../../Images/loading3.svg"
 import jwt_decode from "jwt-decode";
 
 const Login=()=>{
@@ -115,7 +116,7 @@ const Login=()=>{
                         {emptyError&&errorMessage==="Wrong Password"?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" />{errorMessage}</p>:""}
 
                     </div>
-                    <button className={isLoading?"btn disabled-btn": "btn"} disabled={isLoading?true:false} type="submit">{isLoading &&<img src={loadingGif} alt="loading" width="20" />}Sign In</button>
+                    <button className={isLoading?"btn disabled-btn": "btn"} disabled={isLoading?true:false} type="submit">{isLoading &&<img src={loadingGif3} alt="loading" width="20" />}Sign In</button>
                 </form>
                 <h3>Forgot Password? <Link>Reset</Link></h3>
                 <h3>Don't have an Account? <Link to="/register">Sign Up</Link></h3>

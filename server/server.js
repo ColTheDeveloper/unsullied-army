@@ -4,6 +4,7 @@ const cors=require("cors")
 const dotenv=require("dotenv")
 const { default: mongoose } = require("mongoose")
 const authRoute= require("./Routes/authRoute")
+const userRoute=require("./Routes/userRoute")
 
 const app=express()
 dotenv.config()
@@ -30,3 +31,4 @@ app.listen(PORT,()=>{
 })
 
 app.use("/api/auth",authRoute);
+app.use("/api/user",userRoute)

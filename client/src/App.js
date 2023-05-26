@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // FontAwesome icons
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBarsStaggered, faBars, faEye,faEyeSlash, faCaretDown,faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { faBarsStaggered, faBars, faEye,faEyeSlash, faCaretDown,faCircleExclamation,faXmark,faCheck } from "@fortawesome/free-solid-svg-icons";
 import EditProfile from './Pages/EditProfile/EditProfile';
 import Security from './Pages/Security/Security';
 import ProfileSocial from './Subpages/ProfileSocial/ProfileSocial';
@@ -20,16 +20,17 @@ import TeamDetails from './Pages/TeamDetails/TeamDetails';
 import TeamEvent from './Subpages/TeamEvent/TeamEvent';
 import TeamMember from './Subpages/TeamMember/TeamMember';
 import TeamSocial from './Subpages/TeamSocial/TeamSocial';
+//import SetAuth from './hooks/SetAuth';
 
 
 
-library.add(faBarsStaggered, faBars,faEye,faEyeSlash,faCaretDown,faCircleExclamation);
+library.add(faBarsStaggered, faBars,faEye,faEyeSlash,faCaretDown,faCircleExclamation,faXmark,faCheck);
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter >
-        <Routes >
+        <Routes>
           <Route path='/'  element={<Layout />} >
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
@@ -37,7 +38,7 @@ function App() {
             <Route path="about" element={<h1>About</h1>} />
             <Route path='register' element={<Register />} />
             <Route path='*' element={<h1>Error</h1>} />
-            <Route path='/profile/id' element={<Profile />} >
+            <Route path='/:username' element={<Profile />} >
               <Route index element={<EditProfile />} />
               <Route path='security' element={<Security />} />
               <Route path='socials' element={<ProfileSocial />} />

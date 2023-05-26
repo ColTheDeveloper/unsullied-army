@@ -4,9 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ToastContainer, toast } from 'react-toastify';
 import { Link, useNavigate } from "react-router-dom";
 import countries from "../../data/countries.json";
-import { registerUser } from "../../api/userRequest";
+import { checkUsernameUniqueness, registerUser } from "../../api/userRequest";
 import { UAState } from "../../Context/uaDetailsProvider";
-import loadingGif from "../../Images/mainLoading.gif"
+//import loadingGif from "../../Images/mainLoading.gif"
+//import loadingGif2 from "../../Images/loading2.svg"
+import loadingGif3 from "../../Images/loading3.svg"
 import jwt_decode from "jwt-decode";
 
 
@@ -16,6 +18,10 @@ const Register=()=>{
     const [isSelcted, setSelected]=useState(false)
     const [isAfrica, setIsAfrica]=useState(true)
     const [isLoading, setIsLoading]= useState(false)
+    const [usernameChecking, setUsernameChecking]=useState(false)
+    const [usernameIsUnique, setUsernameIsUnique]=useState(false)
+    const [errorMessage,setErrorMessage]=useState("")
+    const [isTypingUsername,setIsTypingUsername]=useState(false)
     const {user,setUser}=UAState()
     const navigate=useNavigate()
     const [emptyError,setEmptyError]=useState(false)
@@ -61,6 +67,27 @@ const Register=()=>{
     const handleChange=(e)=>{
         setFormData({...formData,[e.target.name]:e.target.value})
     }
+    const handleCheckUsername=async(e)=>{
+        setIsLoading(true)
+        setUsernameChecking(true)
+        setIsTypingUsername(true)
+        const username=e.target.value
+        console.log(username)
+
+        try {
+            const {data}=await checkUsernameUniqueness(username)
+            console.log(data.isUnique)  
+            setUsernameIsUnique(data.isUnique)
+            setUsernameChecking(false)
+            setErrorMessage(data.message)
+            console.log(data.message)
+            if(data.message==="")setIsLoading(false)
+        } catch (error) {
+            console.log(error.response)
+            setUsernameChecking(false)  
+            setUsernameIsUnique(error.response.data.isUnique)  
+        }
+    }
 
     // const handleCountry=(e)=>{
     //     setSelected(true)
@@ -73,11 +100,11 @@ const Register=()=>{
     //     }
         
     // }
-    useEffect(()=>{
-        if(user){
-            navigate("/")
-        }
-    },[navigate,user])
+    // useEffect(()=>{
+    //     if(user){
+    //         navigate("/")
+    //     }
+    // },[navigate,user])
 
     const africanCountries=Object.values(countries).filter(key=>key.continent.includes("AF"))
 
@@ -174,16 +201,24 @@ const Register=()=>{
                     </div>
                     <div className="input-container">
                         <label>Username:</label>
-                        <input 
-                            type="text" 
-                            placeholder="JohnDoe200"
-                            name="username"
-                            onChange={handleChange}
-                            value={formData.username}      
-                            className={emptyError&&formData.username===""?"u-input err-input": "u-input"}
-                                                      
-                        />
+                        <div className="pass">
+                            
+                            {usernameChecking?<img width="20" src={loadingGif3} alt="loading"/>:isTypingUsername &&<FontAwesomeIcon icon={usernameIsUnique?"fa-check":"fa-xmark"} />}
+
+                            <input 
+                                type="text" 
+                                placeholder="JohnDoe200"
+                                name="username"
+                                onChange={handleChange}
+                                onChangeCapture={handleCheckUsername}
+                                value={formData.username}      
+                                autoComplete="off"
+                                className={emptyError&&formData.username===""?"u-input err-input": "u-input"}
+                                                        
+                            />
+                        </div>
                         {emptyError&&formData.username===""?<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" />  Username Field can't be Empty</p>:""}
+                        {errorMessage===""?"":<p className="err-text"><FontAwesomeIcon icon="fa-circle-exclamation" /> {errorMessage}</p>}
                     </div>
                     <div className="input-container">
                         <label>Email Address:</label>
@@ -303,7 +338,7 @@ const Register=()=>{
                         </div>
                         
                     }
-                    <button className={isLoading?"btn disabled-btn": "btn"} disabled={isLoading?true:false} type="submit">{isLoading &&<img src={loadingGif} alt="loading" width="15" />}Sign Up</button>
+                    <button className={isLoading?"btn disabled-btn": "btn"} disabled={isLoading?true:false} type="submit">{isLoading &&<img src={loadingGif3} alt="loading" width="15" />}Sign Up</button>
                 </form>
                 <h3>Already have an Account? <Link to="/login">Sign In</Link></h3>
 

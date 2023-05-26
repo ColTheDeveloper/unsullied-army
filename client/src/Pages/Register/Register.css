@@ -43,8 +43,13 @@
     position: absolute;
     bottom: 20%;
     right: 3%;
-    color: black;
 }
+.pass>img{
+    position: absolute;
+    bottom: 20%;
+    right: 3%;
+}
+
 .pass>input{
     width: 100%;
 }

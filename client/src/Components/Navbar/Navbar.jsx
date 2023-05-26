@@ -29,18 +29,22 @@ const Navbar=()=>{
             <nav style={navIsOpen?{right:"3%"}:{right:"-1000px"}}>
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="teams">Blog</NavLink>
-                <NavLink to="about">Recruit</NavLink>
-                <NavLink to="events">Events</NavLink>
-                {user?
-                    <>
-                    <NavLink to="profile/id">My Profile</NavLink>
-                    <NavLink onClick={handleLogout}>Log Out</NavLink>
-                    </>
-                :
-                    <>
-                    <NavLink to="login">Sign In</NavLink>
-                    <NavLink to="register">Sign Up</NavLink>
-                    </>    
+                <NavLink to="about">Events</NavLink>
+                <NavLink to="events">Recruit</NavLink>
+                <NavLink to="store">Store</NavLink>
+                <NavLink to="tools">Tools</NavLink>
+                <NavLink to="tools">Ua Info</NavLink>
+                {//user?
+                //     <>
+                //     <NavLink to="profile/id">My Profile</NavLink>
+                //     <NavLink onClick={handleLogout}>Log Out</NavLink>
+                //     </>
+                // :
+                //     <>
+                //     <NavLink to="login">Sign In</NavLink>
+                //     <NavLink to="register">Sign Up</NavLink>
+                //     </>    
+                // 
                 }
                 
             </nav>

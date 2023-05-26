@@ -102,6 +102,18 @@ label{
   background: var(--gradient-background-color-2-0);
   border-radius: 10px;
 }
+.fa-eye,.fa-eye-slash{
+  color: black;
+}
+.fa-xmark{
+  color: rgb(245, 31, 31);
+}
+.fa-circle-exclamation{
+  color: rgb(245, 31, 31);
+}
+.fa-check{
+  color: var(--green-text-color);
+}
 @media (max-width:450px){
   .y-line-wrapper{
     margin: 1rem .2rem 0 .2rem;
