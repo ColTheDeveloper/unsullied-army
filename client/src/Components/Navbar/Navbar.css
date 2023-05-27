@@ -1,6 +1,7 @@
 .Navbar{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 1rem 2rem;
     overflow-x: hidden;
 }
@@ -14,10 +15,16 @@
 @media (max-width:450px){
 
 }
-.Navbar>nav{
+.Navbar>div{
     display: flex;
     justify-content: space-between;
-    width: 40%;
+    align-items: center;
+    width: 50%;
+}
+.Navbar nav{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
 }
 
 .Navbar>.icon{
@@ -27,6 +34,20 @@
     color: var(--green-text-color);
     font-weight: 700;
 }
+.Navbar .profile-modal{
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--text-color);
+    background-color: var(--background-color2);
+    gap: .3rem;
+    padding: 5px;
+    border-radius: 40px;
+}
+.Navbar .profile-modal>img{
+    width: 1.5rem;
+    height: 100%;
+    border-radius: 50%;
+}
 /* TABLET CSS STYLING */
 @media (max-width:850px) {
     .Navbar{
@@ -35,7 +56,10 @@
     .Navbar>a>img{
         width: 8rem;
     }
-    .Navbar>nav{
+    .Navbar>div{
+        justify-content: flex-end;
+    }
+    .Navbar>div>nav{
         position: absolute;
         top: 4rem;
         right: 3%;
@@ -51,6 +75,7 @@
         transition: right .2s;
         
     }
+    
     .Navbar>.icon{
         display:block;
         font-size: 2rem;

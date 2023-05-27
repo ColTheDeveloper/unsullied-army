@@ -1,21 +1,24 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link,useNavigate,useLocation} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Login.css"
 import { UAState } from "../../Context/uaDetailsProvider";
 import { loginUser } from "../../api/userRequest";
-import loadingGif from "../../Images/mainLoading.gif"
+//import loadingGif from "../../Images/mainLoading.gif"
 import loadingGif3 from "../../Images/loading3.svg"
-import jwt_decode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 
 const Login=()=>{
     const [showPassword, setShowPassword]=useState(false)
-    const {user,setUser}=UAState()
+    const {setToken,setUser}=UAState()
     const [isLoading,setIsLoading]=useState(false)
     const [errorMessage,setErrorMessage]=useState("")
     const [emptyError,setEmptyError]=useState(false)
     const [passwordNotComplete,setPasswordNotComplete]=useState(false)
     const navigate=useNavigate()
+    const location=useLocation()
+
+    const from= location.state?.from?.pathname || "/"
     const [formData, setFormData]=useState({
         userIdentity:"",
         password:""
@@ -64,12 +67,16 @@ const Login=()=>{
 
         try {
             const {data}= await loginUser(formData)
-            const {foundUser}=jwt_decode(data)
+            setToken(data)
+            const {foundUser}=jwtDecode(data)
             setUser(foundUser)
-            console.log(foundUser)
+            localStorage.setItem("UAData",JSON.stringify({foundUser,data}))
+            formData.userIdentity=""
+            formData.password=""
             setIsLoading(false)
+            navigate(from, {replace:true})
         } catch (error) {
-            console.log(error.response.data.message)
+            console.log(error)
             setEmptyError(true)
             setErrorMessage(error.response.data.message)
             setIsLoading(false)

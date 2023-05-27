@@ -1,5 +1,6 @@
 :root{
   --background-color: #272528;
+  --background-color2: #1d1a1f;
   --text-color:#e0dcdc;
   --gradient-background-color: #36E07F  linear-gradient(#3bec8896, #079e48a5) no-repeat;
   --danger-btn-color: #e03636 linear-gradient(#ec3b4796, #9e0725a5) no-repeat;

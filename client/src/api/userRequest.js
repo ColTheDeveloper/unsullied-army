@@ -1,5 +1,5 @@
 import axios from "axios"
-import { UAState } from "../Context/uaDetailsProvider"
+//import { UAState } from "../Context/uaDetailsProvider"
 
 //const {token}=UAState()
 

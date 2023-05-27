@@ -20,6 +20,7 @@ import TeamDetails from './Pages/TeamDetails/TeamDetails';
 import TeamEvent from './Subpages/TeamEvent/TeamEvent';
 import TeamMember from './Subpages/TeamMember/TeamMember';
 import TeamSocial from './Subpages/TeamSocial/TeamSocial';
+import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
 //import SetAuth from './hooks/SetAuth';
 
 
@@ -38,12 +39,14 @@ function App() {
             <Route path="about" element={<h1>About</h1>} />
             <Route path='register' element={<Register />} />
             <Route path='*' element={<h1>Error</h1>} />
-            <Route path='/:username' element={<Profile />} >
-              <Route index element={<EditProfile />} />
-              <Route path='security' element={<Security />} />
-              <Route path='socials' element={<ProfileSocial />} />
-              <Route path='team' element={<ProfileTeam />} />
-            </Route>
+            <Route  element={<ProtectedRoute />} >
+              <Route path='/:username' element={<Profile />} >
+                <Route index element={<EditProfile />} />
+                <Route path='security' element={<Security />} />
+                <Route path='socials' element={<ProfileSocial />} />
+                <Route path='team' element={<ProfileTeam />} />
+              </Route>
+            </Route> 
             <Route path="team/team-name" element={<TeamDetails />}>
               <Route index element={<TeamEvent />} />
               <Route path='members' element={<TeamMember />} />

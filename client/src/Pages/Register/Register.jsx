@@ -2,14 +2,14 @@ import "./Register.css"
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ToastContainer, toast } from 'react-toastify';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,useLocation } from "react-router-dom";
 import countries from "../../data/countries.json";
 import { checkUsernameUniqueness, registerUser } from "../../api/userRequest";
 import { UAState } from "../../Context/uaDetailsProvider";
 //import loadingGif from "../../Images/mainLoading.gif"
 //import loadingGif2 from "../../Images/loading2.svg"
 import loadingGif3 from "../../Images/loading3.svg"
-import jwt_decode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 
 
 const Register=()=>{
@@ -22,8 +22,9 @@ const Register=()=>{
     const [usernameIsUnique, setUsernameIsUnique]=useState(false)
     const [errorMessage,setErrorMessage]=useState("")
     const [isTypingUsername,setIsTypingUsername]=useState(false)
-    const {user,setUser}=UAState()
+    const {setUser,setToken}=UAState()
     const navigate=useNavigate()
+    const location=useLocation()
     const [emptyError,setEmptyError]=useState(false)
     const [passwordMismatchError,setPasswordMismatchError]=useState(false)
     const [passwordNotComplete,setPasswordNotComplete]=useState(false)
@@ -39,6 +40,8 @@ const Register=()=>{
         password:"",
         confirmPassword:""
     })
+
+    const from= location.state?.from?.pathname || "/"
 
     useEffect(()=>{
         //if password input doesn't have anything in it,it won't show confirm password input
@@ -141,11 +144,12 @@ const Register=()=>{
 
         try {
             const {data}=await registerUser(formData)
-            const {foundUser}=jwt_decode(data)
+            setToken(data)
+            const {foundUser}=jwtDecode(data)
             setUser(foundUser)
-            console.log(foundUser)
-            toast.success("Registration Successful")
+            localStorage.setItem("UAData",JSON.stringify({foundUser,data}))
             setIsLoading(false)
+            navigate(from, {replace:true})
 
         } catch (error) {
             toast.error("Registration Failed")

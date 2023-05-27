@@ -15,10 +15,10 @@ const Profile=()=>{
     return(
         <div className="Profile">
             <div className="profile-card">
-                <img src={profile} alt={"user.username"} width="30"/>
-                <h2>{"user.firstName"} {"user.otherName"} {"user.lastName"}</h2>
+                <img src={profile} alt={user.username} width="30"/>
+                <h2>{user.firstName} {user.otherName} {user.lastName}</h2>
                 {/* <p><span>Colakunleumaru@gmail.com</span></p> */}
-                <span>{"user.username"}</span>
+                <span>{user.username}</span>
                 {/*<div>
                     <Follower />
                     <div className="follower-line"/>
