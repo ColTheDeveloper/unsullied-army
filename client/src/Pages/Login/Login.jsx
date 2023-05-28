@@ -68,9 +68,9 @@ const Login=()=>{
         try {
             const {data}= await loginUser(formData)
             setToken(data)
-            const {foundUser}=jwtDecode(data)
-            setUser(foundUser)
-            localStorage.setItem("UAData",JSON.stringify({foundUser,data}))
+            const {user}=jwtDecode(data)
+            setUser(user)
+            localStorage.setItem("UAData",JSON.stringify({user,data}))
             formData.userIdentity=""
             formData.password=""
             setIsLoading(false)

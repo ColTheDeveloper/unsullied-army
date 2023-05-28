@@ -4,8 +4,8 @@ const UAContext= createContext()
 
 
 const UADetailsProvider=({children})=>{
-    const [user,setUser]=useState(JSON.parse(localStorage.getItem("UAData"))?.foundUser);
-    const [token,setToken]=useState(JSON.parse(localStorage.getItem("UAData"))?.token)
+    const [user,setUser]=useState(JSON.parse(localStorage.getItem("UAData"))?.user);
+    const [token,setToken]=useState(JSON.parse(localStorage.getItem("UAData"))?.data)
     
 
 

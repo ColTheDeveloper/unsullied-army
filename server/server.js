@@ -5,6 +5,7 @@ const dotenv=require("dotenv")
 const { default: mongoose } = require("mongoose")
 const authRoute= require("./Routes/authRoute")
 const userRoute=require("./Routes/userRoute")
+const cookieParser=require("cookie-parser")
 
 const app=express()
 dotenv.config()
@@ -17,7 +18,7 @@ app.use(bodyParser.json({limit:"50mb"}))
 app.use(
     cors()
 )
-
+app.use(cookieParser())
 mongoose.connect(MONGO_CONNECTION)
     .then(()=>{
         console.log("database connected to the server")

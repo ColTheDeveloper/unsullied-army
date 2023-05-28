@@ -1,0 +1,25 @@
+.NavProfile{
+    display: flex;
+    flex-direction: column;
+    font-family: Poppins;
+}
+.NavProfile>a>p{
+    width: 100%;
+    padding: .4rem;
+    border: none;
+}
+.NavProfile>p{
+    color: var(--text-color);
+    width: 100%;
+    padding: .4rem;
+    border-top: 1px solid var(--green-text-color);
+}
+.NavProfile>a>p:hover,.NavProfile>p:hover{
+    background-color: var(--green-hover-color);
+    
+}
+[role="tooltip"].popup-content{
+    right: 3% !important; 
+    left: unset !important;
+    width: 180px !important;
+}

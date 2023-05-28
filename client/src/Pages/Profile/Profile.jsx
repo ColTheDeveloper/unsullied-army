@@ -27,8 +27,8 @@ const Profile=()=>{
                 {/*<button className="profile-action">Visitor Mode</button>*/}
             </div>
             <div>
+                <NavLink to={`/${user.username}`}>General</NavLink>
                 <NavLink to="gamer-stat">Gamer Stats</NavLink>
-                <NavLink to="/profile/id">General</NavLink>
                 <NavLink to="socials">Socials</NavLink>
                 <NavLink to="team">Teams</NavLink>
                 <NavLink to="security">Security</NavLink>

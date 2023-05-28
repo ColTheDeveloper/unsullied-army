@@ -145,9 +145,9 @@ const Register=()=>{
         try {
             const {data}=await registerUser(formData)
             setToken(data)
-            const {foundUser}=jwtDecode(data)
-            setUser(foundUser)
-            localStorage.setItem("UAData",JSON.stringify({foundUser,data}))
+            const {user}=await jwtDecode(data)
+            setUser(user)
+            localStorage.setItem("UAData",JSON.stringify({user,data}))
             setIsLoading(false)
             navigate(from, {replace:true})
 

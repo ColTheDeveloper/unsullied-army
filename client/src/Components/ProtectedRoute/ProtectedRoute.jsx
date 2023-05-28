@@ -3,7 +3,6 @@ import { UAState } from "../../Context/uaDetailsProvider"
 const ProtectedRoute=()=>{
     const location=useLocation()
     const {user}=UAState()
-    console.log(user)
 
 
 

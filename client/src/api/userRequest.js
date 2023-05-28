@@ -20,4 +20,6 @@ export const loginUser=(formData)=>API.post("/api/auth/login", formData)
 
 export const checkUsernameUniqueness=(username)=>API.post("/api/user/checkUsername", {username})
 
-export const refreshUser=()=>API.get("/api/auth/refresh",config)
+export const refreshUser=()=>API.get("/api/auth/refresh")
+
+export const logoutUser=()=>API.get("/api/auth/logout")
