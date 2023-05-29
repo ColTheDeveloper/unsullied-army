@@ -24,7 +24,20 @@ const usernameIsUnique=asyncHandler(async(req,res)=>{
 })
 
 
-//GET A USER
+//GET A USER with username
+
+const getUserWithUsername=asyncHandler(async(req,res)=>{
+    const {username}=req.body
+
+    const foundUser= await userModel.findOne({username:username})
+
+
+    if(!foundUser) return res.json({message:"User not Found",alreadyExisted:false})
+
+    res.json({foundUser,alreadyExisted:true})
+
+
+})
 
 
 //GET ALL USERS
@@ -42,4 +55,4 @@ const getAllUser=asyncHandler(async(req,res)=>{
 
 //DELETE A USER
 
-module.exports={getAllUser,usernameIsUnique}
+module.exports={getAllUser,usernameIsUnique,getUserWithUsername}

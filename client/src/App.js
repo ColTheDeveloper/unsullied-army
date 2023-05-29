@@ -1,5 +1,5 @@
 //import { UAState } from './Context/uaDetailsProvider';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Layout from './Components/Layout/Layout';
 import Home from './Pages/Home/Home';
@@ -38,7 +38,8 @@ function App() {
             <Route path="teams" element={<h1>Teams</h1>} />
             <Route path="about" element={<h1>About</h1>} />
             <Route path='register' element={<Register />} />
-            <Route path='*' element={<h1>Error</h1>} />
+            <Route path='*' element={<Navigate to="/404" />} />
+            <Route path="404" element={<h1>Error</h1>} />
             <Route  element={<ProtectedRoute />} >
               <Route path='/:username' element={<Profile />} >
                 <Route index element={<EditProfile />} />

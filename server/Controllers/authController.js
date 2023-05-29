@@ -42,7 +42,7 @@ const register=asyncHandler(async(req,res)=>{
 
     res.cookie("jwt",refreshToken,{
         httpOnly:true,
-        //secure:false,
+        secure:false,
         sameSite:"None",
         maxAge:60 * 60 *60 *1000
     })
@@ -85,7 +85,7 @@ const login=asyncHandler(async(req,res)=>{
 
     res.cookie("jwt",refreshToken,{
         httpOnly:true, //accessable only by web server
-        //secure:true, // https
+        secure:true ,// https
         sameSite: "None", //cross-site cookie
         maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expires in 10min
     })
@@ -95,13 +95,14 @@ const login=asyncHandler(async(req,res)=>{
 
 const refresh=(req,res)=>{
     const cookies=req.cookies
+    console.log(cookies)
 
     if(!cookies?.jwt) return res.status(401).json({message:"Login Session Expired"})
 
     const refreshToken= cookies.jwt
 
     jwt.verify(refreshToken,process.env.REFRESH_TOKEN_SECRET,asyncHandler(async(err,decode)=>{
-        if(err)return res.status(403).json({message:"Forbidden"})
+        if(err)return res.status(403).json({message:err})
         
         console.log(decode.user.username)
         const user= await userModel.findOne({username: decode.user.username})
@@ -121,10 +122,11 @@ const refresh=(req,res)=>{
 
 const logout=(req,res)=>{
     const cookies=req.cookies
+    console.log(cookies)
 
     if(!cookies?.jwt) return res.sendStatus(204)
 
-    res.clearCookie("jwt",{httpOnly:true ,sameSite:"None",secure: true})
+    res.clearCookie("jwt",{httpOnly:true ,sameSite:"None",secure:true})
 
     res.json({message:"Cookie cleared"})
 }

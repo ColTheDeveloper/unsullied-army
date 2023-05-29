@@ -22,4 +22,6 @@ export const checkUsernameUniqueness=(username)=>API.post("/api/user/checkUserna
 
 export const refreshUser=()=>API.get("/api/auth/refresh")
 
+export const getUserWithUsername=(username)=>API.post("api/user/getUserWithUsername", {username})
+
 export const logoutUser=()=>API.get("/api/auth/logout")
