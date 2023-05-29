@@ -3,12 +3,12 @@ import axios from "axios"
 
 //const {token}=UAState()
 
-const config={
-    headers:{
-        Authorization:`Bearer ${axios}`
+// const config={
+//     headers:{
+//         Authorization:`Bearer ${axios}`
 
-    }
-}
+//     }
+// }
 
 const apiUrl=process.env.REACT_APP_API_URL
 
@@ -23,5 +23,7 @@ export const checkUsernameUniqueness=(username)=>API.post("/api/user/checkUserna
 export const refreshUser=()=>API.get("/api/auth/refresh")
 
 export const getUserWithUsername=(username)=>API.post("api/user/getUserWithUsername", {username})
+
+export const updateUser=(formData)=>API.patch("/api/user/updateUser", formData)
 
 export const logoutUser=()=>API.get("/api/auth/logout")

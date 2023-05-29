@@ -1,19 +1,18 @@
 import "./Profile.css"
 import profile from "../../Images/profile.jpg"
 import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom"
-import Follower from "../../Components/Follower/Follower"
-import Following from "../../Components/Following/following"
+//import Follower from "../../Components/Follower/Follower"
+//import Following from "../../Components/Following/following"
 import { UAState } from "../../Context/uaDetailsProvider"
 import {useState, useEffect } from "react"
-import { getUserWithUsername } from "../../api/userRequest"
 import Preloader from "../../Components/Preloader/Preloader"
 import axios from "axios"
 
 const Profile=()=>{
-    const {user,setIsLoading,isLoading}=UAState()
+    const {user,pageUserInfo,setPageUserInfo}=UAState()
     //let pageUserInfo= {}
-    const [pageUserInfo, setPageUserInfo]=useState({})
-    const [isUser,setIsUser]=useState(false)
+    //const [pageUserInfo, setPageUserInfo]=useState({})
+    const [isLoading, setIsLoading]=useState(true)
     const {username}=useParams()
     const navigate=useNavigate()
 
@@ -31,7 +30,6 @@ const Profile=()=>{
                     setPageUserInfo(data.foundUser)
                 }
                 
-                
                 setIsLoading(false)
             } catch (error) {
                 console.log(error)
@@ -46,10 +44,10 @@ const Profile=()=>{
 
     
 
-    console.log(pageUserInfo)
+    // console.log(pageUserInfo)
 
-    console.log(pageUserInfo._id)
-    console.log(user._id)
+    // console.log(pageUserInfo._id)
+    // console.log(user._id)
 
 
     return(
@@ -70,10 +68,10 @@ const Profile=()=>{
                     </div> */}
                     {/*<button className="profile-action">Visitor Mode</button>*/}
                 </div>
-                {pageUserInfo._id===user._id ?
+                {pageUserInfo._id===user?._id ?
                     <div>
-                        <NavLink>Info</NavLink>
-                        <NavLink to={`/${user.username}`}>General</NavLink>
+                        <NavLink to={`/${user?.username}`}>Info</NavLink>
+                        <NavLink to='general'>General</NavLink>
                         <NavLink to="gamer-stat">Gamer Stats</NavLink>
                         <NavLink to="socials">Socials</NavLink>
                         <NavLink to="team">Teams</NavLink>

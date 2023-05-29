@@ -42,20 +42,43 @@ const userSchema= new mongoose.Schema({
         type:String,
         required:true
     },
-    socials:{
-        facebook:{
-            type:String
-        },
-        twitter:{
-            type:String
-        },
-        instagram:{
-            type:String
-        },
-        tiktok:{
-            type:String
-        },
-    }
+    bio:{
+        type:String,
+        required:true,
+        default:"I Am A Gamer"
+    },
+    facebook:{
+        type:String,
+        default:"https://www.facebook.com/"
+    },
+    twitter:{
+        type:String,
+        default:"https://www.twitter.com/"
+    },
+    instagram:{
+        type:String,
+        default:"https://www.instagram.com/"
+    },
+    tiktok:{
+        type:String,
+        default:"https://www.tiktok.com/@"
+    },
+    youtube:{
+        type:String,
+        default:"https://www.youtube.com/"
+    },
+    twitch:{
+        type:String,
+        default:"https://www.twitch.com/"
+    },
+    eventPlayed:[{
+        type:String
+    }],
+    eventWon:[{
+        type:mongoose.Schema.Types.ObjectId
+    }]
+
+    
 },{timestamps:true});
 
 const userModel=mongoose.model("User", userSchema);

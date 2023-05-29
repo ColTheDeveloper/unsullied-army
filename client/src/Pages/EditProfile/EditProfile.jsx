@@ -1,10 +1,18 @@
+import jwtDecode from "jwt-decode";
 import { useState } from "react";
 import { UAState } from "../../Context/uaDetailsProvider";
 import "./EditProfile.css"
+import { useNavigate } from "react-router-dom";
+import { updateUser } from "../../api/userRequest";
+import loadingGif3 from "../../Images/loading3.svg"
 
 const EditProfile=()=>{
-    const {user}=UAState()
+    const {user,setToken,setUser}=UAState()
+    const [isLoading,setIsLoading]=useState(false)
+    const navigate=useNavigate()
+    
     const [formData,setFormData]=useState({
+        id:user._id,
         firstName:user.firstName,
         otherName:user.otherName,
         lastName:user.lastName,
@@ -14,12 +22,30 @@ const EditProfile=()=>{
 
     })
 
+    const handleSubmit=async(e)=>{
+        e.preventDefault()
+        setIsLoading(true)
+        try {
+            const {data}=await updateUser(formData)
+            setToken(data)
+            const {user}=await jwtDecode(data)
+            setUser(user)
+            localStorage.setItem("UAData",JSON.stringify({user,data}))
+            setIsLoading(false)
+            navigate(`/${user.username}`)
+        } catch (error) {
+            console.log(error)
+            setIsLoading(false)
+            
+        }
+    }
+
     const handleChange=(e)=>{
         setFormData({...formData,[e.target.name]:e.target.value})
     }
     return(
         <div className="EditProfile">
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="input-container">
                     <label>First Name:</label>
                     <input 
@@ -28,7 +54,8 @@ const EditProfile=()=>{
                         name="firstName"   
                         className="u-input"  
                         onChange={handleChange} 
-                        value={formData.firstName}                         
+                        value={formData.firstName}   
+                        autoComplete="off"                      
                     />
                 </div>
                 <div className="input-container">
@@ -39,7 +66,8 @@ const EditProfile=()=>{
                         className="u-input" 
                         name="otherName"
                         onChange={handleChange} 
-                        value={formData.otherName}                        
+                        value={formData.otherName}     
+                        autoComplete="off"                   
                     />
                 </div>
                 <div className="input-container">
@@ -50,7 +78,8 @@ const EditProfile=()=>{
                         className="u-input" 
                         name="lastName"
                         onChange={handleChange}  
-                        value={formData.lastName}                        
+                        value={formData.lastName}      
+                        autoComplete="off"                  
                     />
                 </div>
                 <div className="input-container">
@@ -61,7 +90,8 @@ const EditProfile=()=>{
                         className="u-input"
                         name="username"
                         onChange={handleChange} 
-                        value={formData.username}                           
+                        value={formData.username}     
+                        autoComplete="off"                      
                     />
                 </div>
                 <div className="input-container">
@@ -72,7 +102,8 @@ const EditProfile=()=>{
                         className="u-input"
                         name="email"
                         onChange={handleChange} 
-                        value={formData.email}                              
+                        value={formData.email}          
+                        autoComplete="off"                    
                     />
                 </div>
                 <div className="input-container">
@@ -123,7 +154,8 @@ const EditProfile=()=>{
                         
                     />
                 </div>
-                <button className="btn" type="submit">Update Account</button>
+                <button className={isLoading?"btn disabled-btn": "btn"} disabled={isLoading?true:false} type="submit">{isLoading &&<img src={loadingGif3} alt="loading" width="20" />}Update Account</button>
+                
                 
             </form>
 

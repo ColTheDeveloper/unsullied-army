@@ -6,7 +6,8 @@ const UAContext= createContext()
 const UADetailsProvider=({children})=>{
     const [user,setUser]=useState(JSON.parse(localStorage.getItem("UAData"))?.user);
     const [token,setToken]=useState(JSON.parse(localStorage.getItem("UAData"))?.data)
-    const [isLoading, setIsLoading]=useState(true)
+    //const [isLoading, setIsLoading]=useState(true)
+    const [pageUserInfo, setPageUserInfo]=useState({})
     
 
 
@@ -36,7 +37,7 @@ const UADetailsProvider=({children})=>{
     // },[token])
 
     return(
-        <UAContext.Provider value={{token,setToken,setUser,user,isLoading,setIsLoading}} >
+        <UAContext.Provider value={{token,setToken,setUser,user,pageUserInfo,setPageUserInfo}} >
             {children}
         </UAContext.Provider>
     )

@@ -10,7 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // FontAwesome icons
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBarsStaggered, faBars, faEye,faEyeSlash, faCaretDown,faCircleExclamation,faXmark,faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faTwitter, faInstagram,faTiktok, faFacebook, faYoutube,faTwitch } from '@fortawesome/free-brands-svg-icons'
+import { faBarsStaggered, faBars, faEye,faEyeSlash, faCaretDown,faCircleExclamation,faXmark,faCheck} from "@fortawesome/free-solid-svg-icons";
 import EditProfile from './Pages/EditProfile/EditProfile';
 import Security from './Pages/Security/Security';
 import ProfileSocial from './Subpages/ProfileSocial/ProfileSocial';
@@ -22,11 +23,12 @@ import TeamMember from './Subpages/TeamMember/TeamMember';
 import TeamSocial from './Subpages/TeamSocial/TeamSocial';
 import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
 import ToBeNamed from './Subpages/ToBeNamed/ToBeNamed';
+import ProfileGamerStats from './Subpages/ProfileGamerStats/ProfileGamerStats';
 //import SetAuth from './hooks/SetAuth';
 
 
 
-library.add(faBarsStaggered, faBars,faEye,faEyeSlash,faCaretDown,faCircleExclamation,faXmark,faCheck);
+library.add(faBarsStaggered, faBars,faEye,faEyeSlash,faCaretDown,faCircleExclamation,faXmark,faCheck,faTwitter,faInstagram,faTiktok,faFacebook, faYoutube,faTwitch);
 
 function App() {
   return (
@@ -41,14 +43,15 @@ function App() {
             <Route path='register' element={<Register />} />
             <Route path='*' element={<Navigate to="/404" />} />
             <Route path="404" element={<h1>Error</h1>} />
-            <Route  element={<ProtectedRoute />} >
-              <Route path='/:username' element={<Profile />} >
-                <Route index element={<ToBeNamed />} />
-                <Route path='general' element={<EditProfile />} />
-                <Route path='security' element={<Security />} />
-                <Route path='socials' element={<ProfileSocial />} />
-                <Route path='team' element={<ProfileTeam />} />
-              </Route>
+            <Route path='/:username' element={<Profile />} >
+              <Route index element={<ToBeNamed />} />
+                <Route  element={<ProtectedRoute />} >
+                  <Route path='general' element={<EditProfile />} />
+                  <Route path='security' element={<Security />} />
+                  <Route path='gamer-stat' element={<ProfileGamerStats />} />
+                  <Route path='socials' element={<ProfileSocial />} />
+                  <Route path='team' element={<ProfileTeam />} />
+                </Route>
             </Route> 
             <Route path="team/team-name" element={<TeamDetails />}>
               <Route index element={<TeamEvent />} />

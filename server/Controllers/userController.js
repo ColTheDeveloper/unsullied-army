@@ -1,11 +1,9 @@
 const userModel=require("../Models/userModel");
 const asyncHandler= require("express-async-handler")
+const jwt =require("jsonwebtoken")
 
 
-//REGISTER A USER
-const registerAUser=asyncHandler(async(req,res)=>{
-    
-})
+
 
 
 //LOGIN AS A USER
@@ -21,6 +19,40 @@ const usernameIsUnique=asyncHandler(async(req,res)=>{
     if(foundUser) return res.json({message:"Username Already Existed",isUnique:false})
 
     res.json({message:"",isUnique:true})
+})
+
+//Add user social links
+const updateUser=asyncHandler(async(req,res)=>{
+    const {id,...otherDetails}=req.body
+    
+
+    const newUser=await userModel.findByIdAndUpdate(id,{$set:otherDetails})
+
+    if(!newUser)return res.json({message:"Update isn't successful"})
+
+    const user=newUser
+
+    const accessToken= jwt.sign(
+        {user},
+        process.env.ACCESS_TOKEN_SECRET,
+        {expiresIn:"1h"}
+    )
+
+    const refreshToken= jwt.sign(
+        {user},
+        process.env.REFRESH_TOKEN_SECRET,
+        {expiresIn:"1h"}
+    )
+
+    res.cookie("jwt",refreshToken,{
+        httpOnly:true,
+        secure:false,
+        sameSite:"None",
+        maxAge:24 * 60 *60 *1000
+    })
+
+    res.json(accessToken)
+
 })
 
 
@@ -55,4 +87,4 @@ const getAllUser=asyncHandler(async(req,res)=>{
 
 //DELETE A USER
 
-module.exports={getAllUser,usernameIsUnique,getUserWithUsername}
+module.exports={getAllUser,usernameIsUnique,getUserWithUsername,updateUser}
