@@ -1,57 +1,55 @@
 import "./Profile.css"
-//import { useEffect } from "react"
 import profile from "../../Images/profile.jpg"
 import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom"
-//import Follower from "../../Components/Follower/Follower"
-//import Following from "../../Components/Following/following"
+import Follower from "../../Components/Follower/Follower"
+import Following from "../../Components/Following/following"
 import { UAState } from "../../Context/uaDetailsProvider"
 import {useState, useEffect } from "react"
 import { getUserWithUsername } from "../../api/userRequest"
 import Preloader from "../../Components/Preloader/Preloader"
+import axios from "axios"
 
 const Profile=()=>{
     const {user,setIsLoading,isLoading}=UAState()
     //let pageUserInfo= {}
-    let [pageUserInfo, setPageUserInfo]=useState({})
+    const [pageUserInfo, setPageUserInfo]=useState({})
     const [isUser,setIsUser]=useState(false)
     const {username}=useParams()
     const navigate=useNavigate()
+
+    const apiUrl=process.env.REACT_APP_API_URL
+    
     
     useEffect(()=>{
         const checkUsername=async()=>{
             setIsLoading(true)
             try {
-                const {data}=await getUserWithUsername(username)
+                const {data}=await axios.post(`${apiUrl}/api/user/getUserWithUsername`, {username})//getUserWithUsername(username)
                 if(!data.alreadyExisted){
                     navigate("/404")
                 }else{
-                    console.log(data)
                     setPageUserInfo(data.foundUser)
-                    // eslint-disable-next-line
-                   //pageUserInfo=await data.foundUser
                 }
+                
                 
                 setIsLoading(false)
             } catch (error) {
                 console.log(error)
                 
             }
+            
         }
         checkUsername()
-        if(user._id===pageUserInfo._id){
-            console.log("isUser")
-            console.log(user,pageUserInfo)
-                    
-            setIsUser(true)
 
-        }else{
-            console.log("isNotUser")
-            console.log(user,pageUserInfo)
-            setIsUser(false)
-        }
         // eslint-disable-next-line
     },[username])
 
+    
+
+    console.log(pageUserInfo)
+
+    console.log(pageUserInfo._id)
+    console.log(user._id)
 
 
     return(
@@ -72,8 +70,9 @@ const Profile=()=>{
                     </div> */}
                     {/*<button className="profile-action">Visitor Mode</button>*/}
                 </div>
-                {isUser ?
+                {pageUserInfo._id===user._id ?
                     <div>
+                        <NavLink>Info</NavLink>
                         <NavLink to={`/${user.username}`}>General</NavLink>
                         <NavLink to="gamer-stat">Gamer Stats</NavLink>
                         <NavLink to="socials">Socials</NavLink>
@@ -85,7 +84,7 @@ const Profile=()=>{
                         <NavLink>Home</NavLink>
 
                     </div>
-                    }
+                }
                 <Outlet />
             </div>
         }    
