@@ -16,3 +16,14 @@ const ProtectedRoute=()=>{
 }
 
 export default ProtectedRoute;
+
+export const UnAccessibleWhileLoggedIn=()=>{
+    const {user}=UAState()
+    const location=useLocation()
+    return(
+        user?
+            <Navigate to="/" state={{from:location}} replace />
+        :
+            <Outlet />    
+    )
+}

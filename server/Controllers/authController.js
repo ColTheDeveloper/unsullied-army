@@ -95,7 +95,7 @@ const login=asyncHandler(async(req,res)=>{
 
 const refresh=(req,res)=>{
     const cookies=req.cookies
-    console.log(cookies)
+    
 
     if(!cookies?.jwt) return res.status(401).json({message:"Login Session Expired"})
 
@@ -122,7 +122,7 @@ const refresh=(req,res)=>{
 
 const logout=(req,res)=>{
     const cookies=req.cookies
-    console.log(cookies)
+    
 
     if(!cookies?.jwt) return res.sendStatus(204)
 

@@ -16,7 +16,8 @@ const userSchema= new mongoose.Schema({
     email:{
         type:String,
         required:true,
-        unique:true
+        unique:true,
+        lowercase:true
     },
     country:{
         type:String,
@@ -49,34 +50,47 @@ const userSchema= new mongoose.Schema({
     },
     facebook:{
         type:String,
-        default:"https://www.facebook.com/"
+        default:""
     },
     twitter:{
         type:String,
-        default:"https://www.twitter.com/"
+        default:""
     },
     instagram:{
         type:String,
-        default:"https://www.instagram.com/"
+        default:""
     },
     tiktok:{
         type:String,
-        default:"https://www.tiktok.com/@"
+        default:""
     },
     youtube:{
         type:String,
-        default:"https://www.youtube.com/"
+        default:""
     },
     twitch:{
         type:String,
-        default:"https://www.twitch.com/"
+        default:""
     },
     eventPlayed:[{
         type:String
     }],
     eventWon:[{
         type:mongoose.Schema.Types.ObjectId
-    }]
+    }],
+    gameInfo:[
+        {
+            gameName:{
+                type:String
+            },
+            gameIgn:{
+                type:String
+            },
+            gameId:{
+                type:String
+            }
+        }
+    ]
 
     
 },{timestamps:true});

@@ -16,7 +16,11 @@ const MONGO_CONNECTION=process.env.MONGO_CONNECTION
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json({limit:"50mb"}))
 app.use(
-    cors()
+    cors({
+        origin:["http://localhost:3000","https://unsullied-army.vercel.app"],
+        method:["GET","POST","PATCH","PUT"],
+        credentials:true
+    })
 )
 app.use(cookieParser())
 mongoose.connect(MONGO_CONNECTION)

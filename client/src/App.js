@@ -21,10 +21,10 @@ import TeamDetails from './Pages/TeamDetails/TeamDetails';
 import TeamEvent from './Subpages/TeamEvent/TeamEvent';
 import TeamMember from './Subpages/TeamMember/TeamMember';
 import TeamSocial from './Subpages/TeamSocial/TeamSocial';
-import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
+import ProtectedRoute, { UnAccessibleWhileLoggedIn } from './Components/ProtectedRoute/ProtectedRoute';
 import ToBeNamed from './Subpages/ToBeNamed/ToBeNamed';
 import ProfileGamerStats from './Subpages/ProfileGamerStats/ProfileGamerStats';
-//import SetAuth from './hooks/SetAuth';
+import ForgetPassword from './Pages/ForgetPassword/ForgetPassword';
 
 
 
@@ -37,10 +37,13 @@ function App() {
         <Routes>
           <Route path='/'  element={<Layout />} >
             <Route index element={<Home />} />
-            <Route path="login" element={<Login />} />
             <Route path="teams" element={<h1>Teams</h1>} />
             <Route path="about" element={<h1>About</h1>} />
-            <Route path='register' element={<Register />} />
+            <Route element={<UnAccessibleWhileLoggedIn />}>
+              <Route path='register' element={<Register />} />
+              <Route path="login" element={<Login />} />
+              <Route path='forget-password' element={<ForgetPassword />} />
+            </Route>
             <Route path='*' element={<Navigate to="/404" />} />
             <Route path="404" element={<h1>Error</h1>} />
             <Route path='/:username' element={<Profile />} >

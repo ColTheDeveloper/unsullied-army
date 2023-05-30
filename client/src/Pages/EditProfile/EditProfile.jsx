@@ -17,9 +17,7 @@ const EditProfile=()=>{
         otherName:user.otherName,
         lastName:user.lastName,
         username:user.username,
-        email:user.email,
         bio:user.bio
-
     })
 
     const handleSubmit=async(e)=>{
@@ -99,11 +97,9 @@ const EditProfile=()=>{
                     <input 
                         type="text" 
                         placeholder="example@domain.com"   
-                        className="u-input"
-                        name="email"
-                        onChange={handleChange} 
-                        value={formData.email}          
-                        autoComplete="off"                    
+                        className="u-input" 
+                        value={user.email}          
+                        readOnly                   
                     />
                 </div>
                 <div className="input-container">

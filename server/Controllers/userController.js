@@ -71,6 +71,20 @@ const getUserWithUsername=asyncHandler(async(req,res)=>{
 
 })
 
+//RESET USER PASSWORD
+const sendResetPasswordLink=asyncHandler(async(req,res)=>{
+    const {userIdentity}=req.body
+
+    const foundUser=await userModel.findOne({$or:[{username:userIdentity},{email:userIdentity}]})
+
+    if(!foundUser) return res.status(400).json({message:"User Doesn't Exist"})
+
+    const {email}=foundUser
+
+    res.json(email)
+
+})
+
 
 //GET ALL USERS
 const getAllUser=asyncHandler(async(req,res)=>{
@@ -87,4 +101,4 @@ const getAllUser=asyncHandler(async(req,res)=>{
 
 //DELETE A USER
 
-module.exports={getAllUser,usernameIsUnique,getUserWithUsername,updateUser}
+module.exports={getAllUser,usernameIsUnique,getUserWithUsername,updateUser,sendResetPasswordLink}

@@ -125,7 +125,7 @@ const Login=()=>{
                     </div>
                     <button className={isLoading?"btn disabled-btn": "btn"} disabled={isLoading?true:false} type="submit">{isLoading &&<img src={loadingGif3} alt="loading" width="20" />}Sign In</button>
                 </form>
-                <h3>Forgot Password? <Link>Reset</Link></h3>
+                <h3>Forgot Password? <Link to="/forget-password">Reset</Link></h3>
                 <h3>Don't have an Account? <Link to="/register">Sign Up</Link></h3>
             </div>
 

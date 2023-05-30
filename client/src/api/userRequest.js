@@ -12,7 +12,7 @@ import axios from "axios"
 
 const apiUrl=process.env.REACT_APP_API_URL
 
-const API=axios.create({baseURL: apiUrl})
+const API=axios.create({withCredentials:true,baseURL: apiUrl})
 
 export const registerUser=(formData)=>API.post("/api/auth/register",formData)
 
@@ -25,5 +25,7 @@ export const refreshUser=()=>API.get("/api/auth/refresh")
 export const getUserWithUsername=(username)=>API.post("api/user/getUserWithUsername", {username})
 
 export const updateUser=(formData)=>API.patch("/api/user/updateUser", formData)
+
+export const sendResetPasswordLink=(userIdentity)=>API.post("api/user/sendResetPasswordLink", {userIdentity})
 
 export const logoutUser=()=>API.get("/api/auth/logout")
