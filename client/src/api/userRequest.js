@@ -30,4 +30,6 @@ export const sendResetPasswordLink=(userIdentity)=>API.post("api/user/sendResetP
 
 export const resetPassword=(formData)=>API.patch("/api/user/resetPassword", formData)
 
+export const addNewGameInfo=(gameInfo)=>API.put("/api/user/addNewGameInfo", gameInfo)
+
 export const logoutUser=()=>API.get("/api/auth/logout")

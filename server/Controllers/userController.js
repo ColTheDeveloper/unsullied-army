@@ -8,7 +8,7 @@ const resetPasswordMail = require("../mailers/resetPasswordMail");
 
 
 
-//LOGIN AS A USER
+
 
 //Check if user username is unique
 const usernameIsUnique=asyncHandler(async(req,res)=>{
@@ -83,7 +83,6 @@ const sendResetPasswordLink=asyncHandler(async(req,res)=>{
 
 
     resetPasswordMail(user)
-    res.json(user)
 
 })
 
@@ -136,7 +135,47 @@ const resetPassword=asyncHandler(async(req,res)=>{
 
 })
 
+//ADD NEW GAME STATS
+const addNewGameInfo=asyncHandler(async(req,res)=>{
+    const {id,...otherDetails}=req.body
 
+    const foundUser= await userModel.findById(id)
+
+    const gameExist= foundUser.gameInfo.find((game)=>game.gameName===otherDetails.gameName)
+
+    console.log(gameExist)
+
+    if(gameExist) return res.json({message:"Game Already Has Details"}) 
+    
+
+    const user=await userModel.findByIdAndUpdate(id,{$push:{gameInfo:otherDetails}},{new:true})
+
+    if(!user) return res.json({message:"Update Failed"})
+
+    const accessToken= jwt.sign(
+        {user},
+        process.env.ACCESS_TOKEN_SECRET,
+        {expiresIn:"1h"}
+    )
+
+    const refreshToken= jwt.sign(
+        {user},
+        process.env.REFRESH_TOKEN_SECRET,
+        {expiresIn:"1h"}
+    )
+
+    res.cookie("jwt",refreshToken,{
+        httpOnly:true,
+        secure:false,
+        sameSite:"None",
+        maxAge:24 * 60 *60 *1000
+    })
+
+    res.json({accessToken,message:"Update Successful"})
+
+
+    
+})
 
 
 //GET ALL USERS
@@ -154,4 +193,4 @@ const getAllUser=asyncHandler(async(req,res)=>{
 
 //DELETE A USER
 
-module.exports={getAllUser,usernameIsUnique,getUserWithUsername,updateUser,sendResetPasswordLink,resetPassword}
+module.exports={getAllUser,usernameIsUnique,getUserWithUsername,updateUser,sendResetPasswordLink,resetPassword,addNewGameInfo}
