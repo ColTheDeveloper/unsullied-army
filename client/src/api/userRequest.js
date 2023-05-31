@@ -28,4 +28,6 @@ export const updateUser=(formData)=>API.patch("/api/user/updateUser", formData)
 
 export const sendResetPasswordLink=(userIdentity)=>API.post("api/user/sendResetPasswordLink", {userIdentity})
 
+export const resetPassword=(formData)=>API.patch("/api/user/resetPassword", formData)
+
 export const logoutUser=()=>API.get("/api/auth/logout")

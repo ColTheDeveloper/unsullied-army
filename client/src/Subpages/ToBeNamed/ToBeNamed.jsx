@@ -8,7 +8,7 @@ const ToBeNamed=()=>{
         <div className="ToBeNamed">
             <div >
                 <span>Bio:</span>
-                <p>I Am A Gamer</p>
+                <p>{pageUserInfo.bio}</p>
             </div>
             <div>
                 <span>Socials</span>

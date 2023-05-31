@@ -25,6 +25,7 @@ import ProtectedRoute, { UnAccessibleWhileLoggedIn } from './Components/Protecte
 import ToBeNamed from './Subpages/ToBeNamed/ToBeNamed';
 import ProfileGamerStats from './Subpages/ProfileGamerStats/ProfileGamerStats';
 import ForgetPassword from './Pages/ForgetPassword/ForgetPassword';
+import ChangePassword from './Pages/ChangePassword/ChangePassword';
 
 
 
@@ -46,6 +47,7 @@ function App() {
             </Route>
             <Route path='*' element={<Navigate to="/404" />} />
             <Route path="404" element={<h1>Error</h1>} />
+            <Route path='forget-password/:token' element={<ChangePassword />} />
             <Route path='/:username' element={<Profile />} >
               <Route index element={<ToBeNamed />} />
                 <Route  element={<ProtectedRoute />} >
