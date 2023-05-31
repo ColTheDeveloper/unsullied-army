@@ -11,7 +11,7 @@ const ProfileGamerStats=()=>{
         gameId:""
     })
     const handleShowButton=()=>{
-        setShowInput(true)
+        setShowInput(!showInput)
         
     }
 

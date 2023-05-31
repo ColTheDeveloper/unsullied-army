@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UAState } from "../../Context/uaDetailsProvider";
 import './ToBeNamed.css'
+import teamLogo from "../../Images/team-logo.png"
 
 
 const ToBeNamed=()=>{
@@ -9,7 +10,7 @@ const ToBeNamed=()=>{
     const year=date.getFullYear()
     const month=date.toLocaleString('en-US',{month:"long"})
 
-    const Arr=[1,2,3,4,56,6,7]
+    const Arr=[11,2,3,5,2,3,]
     return(
         <div className="ToBeNamed">
             <div id="first-section">
@@ -37,17 +38,34 @@ const ToBeNamed=()=>{
             </div>
             <div id="second-section">
                 <div>
-                    <span>TEAMS</span>
-                    {Arr.map((Array)=>{
-                        return(
-                            <div>
-                            
-                            </div>
-                        )
-                    })}
+                    <span>TEAMS:</span>
                     <div>
-
+                        {Arr.map((Array,i)=>{
+                            return(
+                                <div key={i} className="second-section-team">
+                                    <img src={teamLogo} alt=""/>
+                                    <span>Unsullied Army</span>
+                                </div>
+                                )
+                            })
+                        }
                     </div>
+                    
+                </div>
+                <div>
+                    <span>Event Played:</span>
+                    <div>
+                        {Arr.map((Array,i)=>{
+                            return(
+                                <div key={i} className="second-section-team">
+                                    <img src={teamLogo} alt=""/>
+                                    <span>Unsullied Army</span>
+                                </div>
+                                )
+                            })
+                        }
+                    </div>
+                    
                 </div>
 
             </div>
