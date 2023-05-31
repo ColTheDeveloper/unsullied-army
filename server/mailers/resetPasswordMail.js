@@ -4,10 +4,10 @@ const transporter=require("../config/nodeMailer")
 const resetPasswordMail=(user)=>{
     transporter.sendMail(
         {
-            from:"info@unsulliedArmy.com",
+            from:"info@unsulliedarmy.org",
             to:user.email,
-            subject:"",
-            html:"<h1>Hello</h1>"
+            subject:"Request for reset password link",
+            html:"<div>Hello</div>"
         },
         (err,data)=>{
             if(err){
@@ -20,3 +20,5 @@ const resetPasswordMail=(user)=>{
 }
 
 module.exports= resetPasswordMail;
+
+

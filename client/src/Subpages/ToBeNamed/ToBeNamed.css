@@ -1,0 +1,61 @@
+.ToBeNamed{
+    display: flex;
+    gap: 1rem;
+    margin: 2rem;
+}
+#first-section{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+}
+.bio{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--gradient-background-color-2-0);
+    border-radius: 10px;
+}
+.bio>span:nth-of-type(1){
+    font-weight: 500;
+}
+.bio>span:nth-of-type(2){
+    font-weight: 300;
+    text-align: center;
+    color:var(--username-text-color);
+}
+.about-me{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--gradient-background-color-2-0);
+    border-radius: 10px;
+}
+.about-me>span{
+    font-weight: 500;
+}
+.about-me>div:nth-of-type(1){
+    display: flex;
+    flex-direction: column;
+    font-weight: 300;
+    width: 100%;
+}
+.about-me>div>div{
+    display: flex;
+    justify-content: space-between;
+}
+.about-me>div>div>span:nth-of-type(2){
+    color: var(--username-text-color);
+}
+.about-me>div:nth-of-type(2){
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1rem;
+    
+}
+.about-me>div:nth-of-type(2)>a>svg{
+    font-size: 1.8rem;
+}
