@@ -10,6 +10,7 @@ const cookieParser=require("cookie-parser")
 const app=express()
 dotenv.config()
 
+console.log(process.env.NODE_ENV==="production")
 const PORT=process.env.PORT
 const MONGO_CONNECTION=process.env.MONGO_CONNECTION
 

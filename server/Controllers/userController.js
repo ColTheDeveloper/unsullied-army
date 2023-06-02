@@ -51,7 +51,7 @@ const updateUser=asyncHandler(async(req,res)=>{
 
     res.cookie("jwt",refreshToken,{
         httpOnly:true,
-        secure:false,
+        secure:process.env.NODE_ENV==="production",
         sameSite:"None",
         maxAge:24 * 60 *60 *1000
     })
@@ -126,7 +126,7 @@ const resetPassword=asyncHandler(async(req,res)=>{
 
     res.cookie("jwt",refreshToken,{
         httpOnly:true,
-        secure:false,
+        secure:process.env.NODE_ENV==="production",
         sameSite:"None",
         maxAge:24 * 60 *60 *1000
     })
@@ -172,7 +172,7 @@ const addNewGameInfo=asyncHandler(async(req,res)=>{
 
     res.cookie("jwt",refreshToken,{
         httpOnly:true,
-        secure:false,
+        secure:process.env.NODE_ENV==="production",
         sameSite:"None",
         maxAge:24 * 60 *60 *1000
     })
@@ -208,7 +208,7 @@ const deleteGameInfo=asyncHandler(async(req,res)=>{
 
     res.cookie("jwt",refreshToken,{
         httpOnly:true,
-        secure:false,
+        secure:process.env.NODE_ENV==="production",
         sameSite:"None",
         maxAge:24 * 60 *60 *1000
     })

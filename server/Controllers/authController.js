@@ -42,7 +42,7 @@ const register=asyncHandler(async(req,res)=>{
 
     res.cookie("jwt",refreshToken,{
         httpOnly:true,
-        secure:false,
+        secure:process.env.NODE_ENV==="production",
         sameSite:"None",
         maxAge:7 * 24 * 60 * 1000
     })
@@ -89,7 +89,7 @@ const login=asyncHandler(async(req,res)=>{
 
     res.cookie("jwt",refreshToken,{
         httpOnly:true, //accessible only by web server
-        secure:false ,// https
+        secure:process.env.NODE_ENV==="production" ,// https
         sameSite: "None", //cross-site cookie
         maxAge: 7 * 24 * 60 * 1000 //cookie expires in 10min
     })
