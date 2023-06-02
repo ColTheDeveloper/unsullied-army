@@ -1,14 +1,16 @@
 const express=require("express")
-const { usernameIsUnique, getUserWithUsername, updateUser, sendResetPasswordLink, resetPassword, addNewGameInfo} = require("../Controllers/userController")
+const { usernameIsUnique, getUserWithUsername, updateUser, sendResetPasswordLink, resetPassword, addNewGameInfo, deleteGameInfo} = require("../Controllers/userController")
+const verifyJwt = require("../middlewares/verifyJwt")
 
 const router= express.Router()
 
-router.post("/checkUsername", usernameIsUnique)
+router.post("/checkUsername",usernameIsUnique)
 router.post("/getUserWithUsername",getUserWithUsername)
-router.patch("/updateUser", updateUser)
+router.patch("/updateUser",verifyJwt , updateUser)
 router.post("/sendResetPasswordLink",sendResetPasswordLink)
-router.patch("/resetPassword",resetPassword);
-router.put("/addNewGameInfo", addNewGameInfo)
+router.patch("/resetPassword",verifyJwt ,resetPassword);
+router.put("/addNewGameInfo",verifyJwt , addNewGameInfo)
+router.put("/deleteGameInfo",verifyJwt , deleteGameInfo)
 
 
 

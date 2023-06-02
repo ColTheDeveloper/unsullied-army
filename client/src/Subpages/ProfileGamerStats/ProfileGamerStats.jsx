@@ -1,21 +1,20 @@
 import { useState } from "react"
 import loadingGif3 from "../../Images/loading3.svg"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { addNewGameInfo } from "../../api/userRequest"
+import { addNewGameInfo, deleteGameInfo } from "../../api/userRequest"
 import { UAState } from "../../Context/uaDetailsProvider"
 import { useNavigate } from "react-router-dom"
-import jwtDecode from "jwt-decode"
+//import jwtDecode from "jwt-decode"
 import "./ProfileGamerStats.css"
 
 
 const ProfileGamerStats=()=>{
     const [showInput,setShowInput]=useState(false)
-    const {user,setToken,setUser}=UAState()
+    const {user,setToken}=UAState()
     const navigate=useNavigate()
     const [isLoading, setIsLoading]=useState(false)
     const [errorMessage,setErrorMessage]=useState("")
     const [gameInfo,setGameInfo]=useState({
-        id:user._id,
         gameName:"PUBG Mobile",
         gameIgn:"",
         gameId:""
@@ -41,13 +40,24 @@ const ProfileGamerStats=()=>{
             setIsLoading(false)
             return
         }else{
-            setToken(data)
-            const {user}=await jwtDecode(data.accessToken)
-            setUser(user)
-            localStorage.setItem("UAData",JSON.stringify({user,data:data.accessToken}))
+            setToken(data.accessToken)
+            //const {user}=await jwtDecode(data.accessToken)
+            //setUser(user)
+            localStorage.setItem("UAData",JSON.stringify(data.accessToken))
             setIsLoading(false)
             navigate(`/${user.username}`)
 
+        }
+    }
+    const handleDelete=async(game)=>{
+        
+        const {data}=await deleteGameInfo({game})
+        if(data.message==="Update Successful"){
+            setToken(data.accessToken)
+            //const {user}=await jwtDecode(data.accessToken)
+            //setUser(user)
+            localStorage.setItem("UAData",JSON.stringify(data.accessToken))
+            navigate(`/${user.username}`)
         }
     }
     
@@ -56,7 +66,8 @@ const ProfileGamerStats=()=>{
             <div>
                 {user.gameInfo.map((game)=>{
                     return(
-                        <div>
+                        <div key={game._id}>
+                            <FontAwesomeIcon onClick={()=>handleDelete(game)} icon="fa-solid fa-trash-can" />
                             <div><span>Game Name:</span><span>{game.gameName}</span></div>
                             <div><span>Game IGN:</span><span>{game.gameIgn}</span></div>
                             <div><span>Game ID:</span><span>{game.gameId}</span></div>

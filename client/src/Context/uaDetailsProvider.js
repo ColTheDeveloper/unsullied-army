@@ -1,40 +1,39 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState,useEffect } from "react";
+import jwtDecode from "jwt-decode";
 
 const UAContext= createContext()
 
 
 const UADetailsProvider=({children})=>{
-    const [user,setUser]=useState(JSON.parse(localStorage.getItem("UAData"))?.user);
-    const [token,setToken]=useState(JSON.parse(localStorage.getItem("UAData"))?.data)
+    const [user,setUser]=useState(null);
+    const [token,setToken]=useState(localStorage.getItem("UAData")?JSON.parse(localStorage.getItem("UAData")) : null)
     //const [isLoading, setIsLoading]=useState(true)
     const [pageUserInfo, setPageUserInfo]=useState({})
+
+    const newToken=localStorage.getItem("UAData")
     
-
-
-
-    // if(token===null){
-    //     setUser(null)
-    // }else{
-    //     const {foundUser}=jwtDecode(token)
-    //     setUser(foundUser)
-    // }
-
-    
-    
-
-
     
     
     
 
-    // useEffect(()=>{
-    //     if(token===null) return setUser(null)
+    useEffect(()=>{
+        if(token===null) return setUser(null)
         
-    //     const {foundUser}=jwtDecode(token)
+        const {user}=jwtDecode(token)
 
-    //     //const userInfo=JSON.parse(localStorage.getItem("userInfo"))
-    //     setUser(foundUser)
-    // },[token])
+        console.log(user)
+
+
+        //const userInfo=JSON.parse(localStorage.getItem("userInfo"))
+        setUser(user)
+    },[token])
+
+    useEffect(()=>{
+        setToken(JSON.parse(localStorage.getItem("UAData")))
+        console.log("changed")
+        //const userInfo=JSON.parse(localStorage.getItem("userInfo"))
+      
+    },[newToken])
 
     return(
         <UAContext.Provider value={{token,setToken,setUser,user,pageUserInfo,setPageUserInfo}} >

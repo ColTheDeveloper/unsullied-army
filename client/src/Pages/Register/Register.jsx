@@ -9,7 +9,7 @@ import { UAState } from "../../Context/uaDetailsProvider";
 //import loadingGif from "../../Images/mainLoading.gif"
 //import loadingGif2 from "../../Images/loading2.svg"
 import loadingGif3 from "../../Images/loading3.svg"
-import jwtDecode from "jwt-decode";
+//import jwtDecode from "jwt-decode";
 
 
 const Register=()=>{
@@ -22,7 +22,7 @@ const Register=()=>{
     const [usernameIsUnique, setUsernameIsUnique]=useState(false)
     const [errorMessage,setErrorMessage]=useState("")
     const [isTypingUsername,setIsTypingUsername]=useState(false)
-    const {setUser,setToken}=UAState()
+    const {setToken}=UAState()
     const navigate=useNavigate()
     const location=useLocation()
     const [emptyError,setEmptyError]=useState(false)
@@ -145,9 +145,9 @@ const Register=()=>{
         try {
             const {data}=await registerUser(formData)
             setToken(data)
-            const {user}=await jwtDecode(data)
-            setUser(user)
-            localStorage.setItem("UAData",JSON.stringify({user,data}))
+            //const {user}=await jwtDecode(data)
+            //setUser(user)
+            localStorage.setItem("UAData",JSON.stringify(data))
             setIsLoading(false)
             navigate(from, {replace:true})
 

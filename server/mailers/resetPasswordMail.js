@@ -21,4 +21,3 @@ const resetPasswordMail=(user)=>{
 
 module.exports= resetPasswordMail;
 
-

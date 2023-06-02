@@ -5,10 +5,10 @@ import loadingGif3 from "../../Images/loading3.svg"
 import { resetPassword } from "../../api/userRequest";
 import { UAState } from "../../Context/uaDetailsProvider";
 import { useNavigate } from "react-router-dom";
-import jwtDecode from "jwt-decode";
+//import jwtDecode from "jwt-decode";
 
 const Security=()=>{
-    const {user,setToken,setUser}=UAState()
+    const {user,setToken}=UAState()
     const [showPassword, setShowPassword]=useState(false)
     const [isLoading, setIsLoading]=useState(false)
     const [emptyError,setEmptyError]=useState(false)
@@ -17,7 +17,6 @@ const Security=()=>{
     const navigate=useNavigate()
     const [Msg,setMsg]=useState("")
     const [formData,setFormData]=useState({
-        id:user._id,
         password:"",
         newPassword:"",
         confirmNewPassword:""
@@ -77,9 +76,9 @@ const Security=()=>{
 
         if(data.accessToken){
             setToken(data.accessToken)
-            const {user}=jwtDecode(data.accessToken)
-            setUser(user)
-            localStorage.setItem("UAData",JSON.stringify({user,data:data.accessToken}))
+            //const {user}=jwtDecode(data.accessToken)
+            //setUser(user)
+            localStorage.setItem("UAData",JSON.stringify(data.accessToken))
             setIsLoading(false)
             navigate(`/${user.username}`)
         }

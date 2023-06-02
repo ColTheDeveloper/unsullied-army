@@ -4,20 +4,19 @@ import { UAState } from "../../Context/uaDetailsProvider";
 import { updateUser } from "../../api/userRequest";
 import { useNavigate } from "react-router-dom";
 import loadingGif3 from "../../Images/loading3.svg"
-import jwtDecode from "jwt-decode";
+//import jwtDecode from "jwt-decode";
 
 const ProfileSocial=()=>{
-    const {user,setUser,setToken}=UAState()
+    const {user,setToken,pageUserInfo}=UAState()
     const [isLoading,setIsLoading]=useState(false)
     const navigate=useNavigate()
     const [formData, setFormData]=useState({
-        id:user._id,
-        instagram:user.instagram,
-        twitter:user.twitter,
-        facebook:user.facebook,
-        tiktok:user.tiktok,
-        youtube:user.youtube,
-        twitch:user.twitch
+        instagram:pageUserInfo.instagram,
+        twitter:pageUserInfo.twitter,
+        facebook:pageUserInfo.facebook,
+        tiktok:pageUserInfo.tiktok,
+        youtube:pageUserInfo.youtube,
+        twitch:pageUserInfo.twitch
     })
 
     const handleChange=(e)=>{
@@ -30,9 +29,9 @@ const ProfileSocial=()=>{
         try {
             const {data}=await updateUser(formData)
             setToken(data)
-            const {user}=await jwtDecode(data)
-            setUser(user)
-            localStorage.setItem("UAData",JSON.stringify({user,data}))
+            //const {user}=await jwtDecode(data)
+            //setUser(user)
+            localStorage.setItem("UAData",JSON.stringify(data))
             setIsLoading(false)
             navigate(`/${user.username}`)
         } catch (error) {

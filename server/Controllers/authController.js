@@ -31,20 +31,20 @@ const register=asyncHandler(async(req,res)=>{
     const accessToken= jwt.sign(
         {user},
         process.env.ACCESS_TOKEN_SECRET,
-        {expiresIn:"1h"}
+        {expiresIn:"3s"}
     )
 
     const refreshToken= jwt.sign(
         {user},
         process.env.REFRESH_TOKEN_SECRET,
-        {expiresIn:"1h"}
+        {expiresIn:"7d"}
     )
 
     res.cookie("jwt",refreshToken,{
         httpOnly:true,
         secure:false,
         sameSite:"None",
-        maxAge:24 * 60 *60 *1000
+        maxAge:7 * 24 * 60 * 1000
     })
 
     res.json(accessToken)
@@ -69,25 +69,29 @@ const login=asyncHandler(async(req,res)=>{
     if(!match) return res.status(401).json({message:"Wrong Password"});
 
     const accessToken= jwt.sign(
-        {
-            user
-        },
+        {user},
         process.env.ACCESS_TOKEN_SECRET,
-        {expiresIn: "10m"}
-
+        {expiresIn:"3s"}
     )
 
     const refreshToken= jwt.sign(
         {user},
         process.env.REFRESH_TOKEN_SECRET,
-        {expiresIn:"1d"}
+        {expiresIn:"7d"}
     )
 
+    // res.cookie("jwt",refreshToken,{
+    //     httpOnly:true,
+    //     secure:false,
+    //     sameSite:"None",
+    //     maxAge:7 * 24 * 60 * 1000
+    // })
+
     res.cookie("jwt",refreshToken,{
-        httpOnly:true, //accessable only by web server
-        secure:true ,// https
+        httpOnly:true, //accessible only by web server
+        secure:false ,// https
         sameSite: "None", //cross-site cookie
-        maxAge: 24 * 60 * 60 * 1000 //cookie expires in 10min
+        maxAge: 7 * 24 * 60 * 1000 //cookie expires in 10min
     })
 
     res.json(accessToken)
@@ -95,6 +99,8 @@ const login=asyncHandler(async(req,res)=>{
 
 const refresh=(req,res)=>{
     const cookies=req.cookies
+
+    //console.log(cookies)
     
 
     if(!cookies?.jwt) return res.status(401).json({message:"Login Session Expired"})
@@ -104,16 +110,16 @@ const refresh=(req,res)=>{
     jwt.verify(refreshToken,process.env.REFRESH_TOKEN_SECRET,asyncHandler(async(err,decode)=>{
         if(err)return res.status(403).json({message:err})
         
-        console.log(decode.user.username)
+        //console.log(decode.user.username)
         const user= await userModel.findOne({username: decode.user.username})
-        console.log(user)
+        //console.log(user)
 
         if(!user) return res.status(401).json({message:"Unauthorized"})
 
         const accessToken=jwt.sign(
             {user},
             process.env.ACCESS_TOKEN_SECRET,
-            {expiresIn:"10s"}
+            {expiresIn:"3s"}
         )
 
         res.json(accessToken)

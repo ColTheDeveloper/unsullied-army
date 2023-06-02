@@ -1,4 +1,4 @@
-import jwtDecode from "jwt-decode";
+//import jwtDecode from "jwt-decode";
 import { useState } from "react";
 import { UAState } from "../../Context/uaDetailsProvider";
 import "./EditProfile.css"
@@ -7,17 +7,16 @@ import { updateUser } from "../../api/userRequest";
 import loadingGif3 from "../../Images/loading3.svg"
 
 const EditProfile=()=>{
-    const {user,setToken,setUser}=UAState()
+    const {user,setToken,pageUserInfo}=UAState()
     const [isLoading,setIsLoading]=useState(false)
     const navigate=useNavigate()
     
     const [formData,setFormData]=useState({
-        id:user._id,
-        firstName:user.firstName,
-        otherName:user.otherName,
-        lastName:user.lastName,
-        username:user.username,
-        bio:user.bio
+        firstName:pageUserInfo.firstName,
+        otherName:pageUserInfo.otherName,
+        lastName:pageUserInfo.lastName,
+        username:pageUserInfo.username,
+        bio:pageUserInfo.bio
     })
 
     const handleSubmit=async(e)=>{
@@ -26,9 +25,8 @@ const EditProfile=()=>{
         try {
             const {data}=await updateUser(formData)
             setToken(data)
-            const {user}=await jwtDecode(data)
-            setUser(user)
-            localStorage.setItem("UAData",JSON.stringify({user,data}))
+            
+            localStorage.setItem("UAData",JSON.stringify(data))
             setIsLoading(false)
             navigate(`/${user.username}`)
         } catch (error) {

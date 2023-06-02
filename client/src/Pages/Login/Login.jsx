@@ -6,11 +6,11 @@ import { UAState } from "../../Context/uaDetailsProvider";
 import { loginUser } from "../../api/userRequest";
 //import loadingGif from "../../Images/mainLoading.gif"
 import loadingGif3 from "../../Images/loading3.svg"
-import jwtDecode from "jwt-decode";
+//import jwtDecode from "jwt-decode";
 
 const Login=()=>{
     const [showPassword, setShowPassword]=useState(false)
-    const {setToken,setUser}=UAState()
+    const {setToken}=UAState()
     const [isLoading,setIsLoading]=useState(false)
     const [errorMessage,setErrorMessage]=useState("")
     const [emptyError,setEmptyError]=useState(false)
@@ -68,9 +68,9 @@ const Login=()=>{
         try {
             const {data}= await loginUser(formData)
             setToken(data)
-            const {user}=jwtDecode(data)
-            setUser(user)
-            localStorage.setItem("UAData",JSON.stringify({user,data}))
+            //const {user}=jwtDecode(data)
+            //setUser(user)
+            localStorage.setItem("UAData",JSON.stringify(data))
             formData.userIdentity=""
             formData.password=""
             setIsLoading(false)

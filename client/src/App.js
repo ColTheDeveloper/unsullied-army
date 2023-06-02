@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // FontAwesome icons
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTwitter, faInstagram,faTiktok, faFacebook, faYoutube,faTwitch } from '@fortawesome/free-brands-svg-icons'
-import { faBarsStaggered, faBars, faEye,faEyeSlash, faCaretDown,faCircleExclamation,faXmark,faCheck} from "@fortawesome/free-solid-svg-icons";
+import { faBarsStaggered, faBars, faEye,faEyeSlash, faCaretDown,faCircleExclamation,faXmark,faCheck, faTrashCan} from "@fortawesome/free-solid-svg-icons";
 import EditProfile from './Pages/EditProfile/EditProfile';
 import Security from './Pages/Security/Security';
 import ProfileSocial from './Subpages/ProfileSocial/ProfileSocial';
@@ -29,7 +29,7 @@ import ChangePassword from './Pages/ChangePassword/ChangePassword';
 
 
 
-library.add(faBarsStaggered, faBars,faEye,faEyeSlash,faCaretDown,faCircleExclamation,faXmark,faCheck,faTwitter,faInstagram,faTiktok,faFacebook, faYoutube,faTwitch);
+library.add(faBarsStaggered, faBars,faEye,faEyeSlash,faCaretDown,faCircleExclamation,faXmark,faCheck,faTwitter,faInstagram,faTiktok,faFacebook, faYoutube,faTwitch,faTrashCan);
 
 function App() {
   return (

@@ -27,6 +27,10 @@
     justify-content: space-between;
 }
 
+.ProfileGamerStats>div>div>svg{
+    align-self: flex-end;
+}
+
 .ProfileGamerStats>div:nth-of-type(1)>div>div>span:nth-of-type(2){
     color:var(--username-text-color);
 }

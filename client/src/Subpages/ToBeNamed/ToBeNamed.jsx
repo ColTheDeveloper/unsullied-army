@@ -35,6 +35,25 @@ const ToBeNamed=()=>{
                     </div>
                     
                 </div>
+                <div className="details-game">
+                    <span>Games</span>
+                    {pageUserInfo.gameInfo &&
+                        <div>
+                        {pageUserInfo.gameInfo.map((game)=>{
+                            return(
+                                <div key={game._id}>
+                                    <hr className="line"/>
+                                    <div><span>Game Name:</span><span>{game.gameName}</span></div>
+                                    <div><span>Game IGN:</span><span>{game.gameIgn}</span></div>
+                                    <div><span>Game ID:</span><span>{game.gameId}</span></div>
+                                </div>
+                            )
+                        })}
+                        </div>
+
+                    }
+                    
+                </div>
             </div>
             <div id="second-section">
                 <div>

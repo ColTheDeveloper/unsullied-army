@@ -25,10 +25,13 @@ const usernameIsUnique=asyncHandler(async(req,res)=>{
 
 //Add user social links
 const updateUser=asyncHandler(async(req,res)=>{
-    const {id,...otherDetails}=req.body
+    
+    const {_id}=req.user.user
+
+   
     
 
-    const newUser=await userModel.findByIdAndUpdate(id,{$set:otherDetails})
+    const newUser=await userModel.findByIdAndUpdate(_id,{$set:req.body})
 
     if(!newUser)return res.json({message:"Update isn't successful"})
 
@@ -37,7 +40,7 @@ const updateUser=asyncHandler(async(req,res)=>{
     const accessToken= jwt.sign(
         {user},
         process.env.ACCESS_TOKEN_SECRET,
-        {expiresIn:"1h"}
+        {expiresIn:"3s"}
     )
 
     const refreshToken= jwt.sign(
@@ -81,6 +84,7 @@ const sendResetPasswordLink=asyncHandler(async(req,res)=>{
 
     if(!user) return res.status(400).json({message:"User Doesn't Exist"})
 
+    
 
     resetPasswordMail(user)
 
@@ -89,9 +93,10 @@ const sendResetPasswordLink=asyncHandler(async(req,res)=>{
 //RESET PASSWORD
 
 const resetPassword=asyncHandler(async(req,res)=>{
-    const {id,password,newPassword}=req.body
+    const {password,newPassword}=req.body
+    const {_id}=req.user.user
     
-    const foundUser=await userModel.findById(id)
+    const foundUser=await userModel.findById(_id)
 
     if(!foundUser) return res.json({message:"User Not Found"})
 
@@ -103,7 +108,7 @@ const resetPassword=asyncHandler(async(req,res)=>{
 
     const hashPassword=await bcrypt.hash(newPassword, salt);
 
-    const user= await userModel.findByIdAndUpdate(id, {$set:{password:hashPassword}})
+    const user= await userModel.findByIdAndUpdate(_id, {$set:{password:hashPassword}})
 
     if(!user) return res.json({message:"Update isn't Successful"})
 
@@ -137,18 +142,19 @@ const resetPassword=asyncHandler(async(req,res)=>{
 
 //ADD NEW GAME STATS
 const addNewGameInfo=asyncHandler(async(req,res)=>{
-    const {id,...otherDetails}=req.body
+    
+    const {_id}=req.user.user
 
-    const foundUser= await userModel.findById(id)
+    const foundUser= await userModel.findById(_id)
 
-    const gameExist= foundUser.gameInfo.find((game)=>game.gameName===otherDetails.gameName)
+    const gameExist= foundUser.gameInfo.find((game)=>game.gameName===req.body.gameName)
 
-    console.log(gameExist)
+    //console.log(gameExist)
 
     if(gameExist) return res.json({message:"Game Already Has Details"}) 
     
 
-    const user=await userModel.findByIdAndUpdate(id,{$push:{gameInfo:otherDetails}},{new:true})
+    const user=await userModel.findByIdAndUpdate(_id,{$push:{gameInfo:req.body}},{new:true})
 
     if(!user) return res.json({message:"Update Failed"})
 
@@ -177,6 +183,39 @@ const addNewGameInfo=asyncHandler(async(req,res)=>{
     
 })
 
+//DELETE GAME INFO
+const deleteGameInfo=asyncHandler(async(req,res)=>{
+    const {game}=req.body
+    const {_id}=req.user.user
+
+    //console.log(req.body)
+
+    const user=await userModel.findByIdAndUpdate(_id, {$pull:{gameInfo:game}},{new:true})
+
+    if(!user) return res.json({message:"Update Unsuccessful"})
+
+    const accessToken= jwt.sign(
+        {user},
+        process.env.ACCESS_TOKEN_SECRET,
+        {expiresIn:"1h"}
+    )
+
+    const refreshToken= jwt.sign(
+        {user},
+        process.env.REFRESH_TOKEN_SECRET,
+        {expiresIn:"1h"}
+    )
+
+    res.cookie("jwt",refreshToken,{
+        httpOnly:true,
+        secure:false,
+        sameSite:"None",
+        maxAge:24 * 60 *60 *1000
+    })
+
+    res.json({accessToken,message:"Update Successful"})
+
+})
 
 //GET ALL USERS
 const getAllUser=asyncHandler(async(req,res)=>{
@@ -193,4 +232,4 @@ const getAllUser=asyncHandler(async(req,res)=>{
 
 //DELETE A USER
 
-module.exports={getAllUser,usernameIsUnique,getUserWithUsername,updateUser,sendResetPasswordLink,resetPassword,addNewGameInfo}
+module.exports={getAllUser,usernameIsUnique,getUserWithUsername,updateUser,sendResetPasswordLink,resetPassword,addNewGameInfo,deleteGameInfo}
