@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom"
 import "./Navbar.css"
 import NavProfile from "../NavProfile/NavProfile"
+import {UAState} from "../../Context/uaDetailsProvider"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //importibg the unsullied army logo from images folder
@@ -12,6 +13,8 @@ import { useState } from "react"
 
 const Navbar=()=>{
     const [navIsOpen, setNavIsOpen]=useState(false)
+
+    const {user}=UAState()
     
 
     const handleNav=()=>{
@@ -31,7 +34,11 @@ const Navbar=()=>{
                     <NavLink to="store">Store</NavLink>
                     <NavLink to="about">About </NavLink>
                 </nav>
-                <NavProfile />
+                {user?
+                    <NavProfile />
+                :
+                    <Link to="login">Login</Link>
+                }
                 
             </div>
             <FontAwesomeIcon className="icon" onClick={handleNav} icon={navIsOpen?"fa-solid fa-bars-staggered": "fa-solid fa-bars"} />

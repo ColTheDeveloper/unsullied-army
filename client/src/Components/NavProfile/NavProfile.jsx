@@ -22,47 +22,26 @@ const NavProfile=()=>{
             
         }
     }
-    if(user){
-        return(
-            <Popup    
-                trigger={open => (<div className="profile-modal">
-                <img src={profile} alt="username"  width="30"/>
-                <FontAwesomeIcon icon={"fa-caret-down"} />
-            </div>)}    
-                position="bottom center"    
-                closeOnDocumentClick  
-                arrow={false}
-                menu
-            >    
-                <div className="NavProfile">
-                    <Link to={`/${user.username}`}><p>Profile</p></Link>
-                    <Link to={`/${user.username}/team`}><p>My Teams</p></Link>
-                    <Link><p>My Order</p></Link>
-                    <Link><p>Tools</p></Link>
-                    <p onClick={logout}>LogOut</p>
-                </div>
-            </Popup>
-        )
-
-    }else{
-        return(
-            <Popup    
-                trigger={open => (<div className="profile-modal">
-                <img src={profile} alt="username"  width="30"/>
-                <FontAwesomeIcon icon={"fa-caret-down"} />
-            </div>)}    
-                position="bottom center"    
-                closeOnDocumentClick  
-                arrow={false}
-            >    
-                <div className="NavProfile">
-                    <Link to="/login"><p>Log In</p></Link>
-                    <Link to="/register"><p>Register</p></Link>
-                </div>
-            </Popup>
-        )
-
-    }
+    return(
+        <Popup    
+            trigger={open => (<div className="profile-modal">
+            <img src={profile} alt="username"  width="30"/>
+            <FontAwesomeIcon icon={"fa-caret-down"} />
+        </div>)}    
+            position="bottom center"    
+            closeOnDocumentClick  
+            arrow={false}
+            menu
+        >    
+            <div className="NavProfile">
+                <Link to={`/${user.username}`}><p>Profile</p></Link>
+                <Link to={`/${user.username}/team`}><p>My Teams</p></Link>
+                <Link><p>My Order</p></Link>
+                <Link><p>Tools</p></Link>
+                <p onClick={logout}>LogOut</p>
+            </div>
+        </Popup>
+    )
     
 }
 export default NavProfile;
