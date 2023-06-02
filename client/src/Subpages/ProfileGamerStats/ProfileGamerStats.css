@@ -41,3 +41,14 @@
     gap: 1rem;
     margin: 2rem;
 }
+
+/* mobile styling */
+
+@media (max-width:600px){
+    .ProfileGamerStats>div:nth-of-type(1){
+        flex-direction: column;
+    }
+    .ProfileGamerStats>div:nth-of-type(1)>div{
+        width: 100%;
+    }
+}
