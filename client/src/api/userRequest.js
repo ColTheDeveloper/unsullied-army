@@ -6,7 +6,7 @@ import jwtDecode from "jwt-decode"
 //const {token,user}=UAState()
 let token=JSON.parse(localStorage.getItem("UAData"))
 
-console.log(token)
+
 
 
 
@@ -54,15 +54,29 @@ API.interceptors.request.use(async(req,config)=>{
     const isExpired=dayjs.unix(user.exp).diff(dayjs()) < 1;
     
     if(!isExpired) return req
-    
-    const {data}= await axios.get(`${apiUrl}/api/auth/refresh`,{withCredentials:true})
-    
-    console.log(config)
-    console.log({data})
 
-    req.headers.Authorization= `Bearer ${data}`
-    
-    localStorage.setItem("UAData",JSON.stringify(data))
 
-    return req
+    try {
+        const {data}= await axios.get(`${apiUrl}/api/auth/refresh`,{withCredentials:true})
+        console.log({data})
+        req.headers.Authorization= `Bearer ${data}`
+        localStorage.setItem("UAData",JSON.stringify(data))
+        
+        return req
+    } catch (error) {
+        if(error.response.data.message==="Login session Expired"){
+            await logoutUser()
+            localStorage.removeItem("UAData")
+            console.log(error.response.data)
+        }
+        
+    }
+    
+
+    
+    
+    //console.log(config)
+
+    
+
 })

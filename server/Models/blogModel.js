@@ -12,6 +12,15 @@ const blogSchema= new mongoose.Schema({
     blogContent:{
         type:String,
         required:true
+    },
+    blogSummary:{
+        type:String,
+        required:true
+    },
+    blogAuthor:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User",
+        required:true
     }
 },
 {timestamps:true})

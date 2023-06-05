@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // FontAwesome icons
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTwitter, faInstagram,faTiktok, faFacebook, faYoutube,faTwitch } from '@fortawesome/free-brands-svg-icons'
-import { faBarsStaggered, faBars, faEye,faEyeSlash, faCaretDown,faCircleExclamation,faXmark,faCheck, faTrashCan} from "@fortawesome/free-solid-svg-icons";
+import { faBarsStaggered, faBars, faEye,faEyeSlash, faCaretDown,faCircleExclamation,faXmark,faCheck, faTrashCan,faImage} from "@fortawesome/free-solid-svg-icons";
 import EditProfile from './Pages/EditProfile/EditProfile';
 import Security from './Pages/Security/Security';
 import ProfileSocial from './Subpages/ProfileSocial/ProfileSocial';
@@ -26,10 +26,13 @@ import ToBeNamed from './Subpages/ToBeNamed/ToBeNamed';
 import ProfileGamerStats from './Subpages/ProfileGamerStats/ProfileGamerStats';
 import ForgetPassword from './Pages/ForgetPassword/ForgetPassword';
 import ChangePassword from './Pages/ChangePassword/ChangePassword';
+import WriteBlog from './Pages/WriteBlog/WriteBlog';
+import Blogs from './Pages/Blogs/Blogs';
+import SingleBlog from './Pages/SingleBlog/SingleBlog';
 
 
 
-library.add(faBarsStaggered, faBars,faEye,faEyeSlash,faCaretDown,faCircleExclamation,faXmark,faCheck,faTwitter,faInstagram,faTiktok,faFacebook, faYoutube,faTwitch,faTrashCan);
+library.add(faBarsStaggered, faBars,faEye,faEyeSlash,faCaretDown,faCircleExclamation,faXmark,faCheck,faTwitter,faImage,faInstagram,faTiktok,faFacebook, faYoutube,faTwitch,faTrashCan);
 
 function App() {
   return (
@@ -40,6 +43,9 @@ function App() {
             <Route index element={<Home />} />
             <Route path="teams" element={<h1>Teams</h1>} />
             <Route path="about" element={<h1>About</h1>} />
+            <Route path='blog' element={<Blogs />} />
+            <Route path='blog/:id' element={<SingleBlog />} />
+            <Route path='write-blog' element={<WriteBlog />} />
             <Route element={<UnAccessibleWhileLoggedIn />}>
               <Route path='register' element={<Register />} />
               <Route path="login" element={<Login />} />

@@ -1,0 +1,52 @@
+.WriteBlog{
+    padding: 2rem;
+    gap: 2rem;
+    background: var(--gradient-background-color-2-0);
+}
+.WriteBlog>h2{
+    text-align: center;
+}
+.WriteBlog>div{
+    position: relative;
+    width: 60%;
+    height: 20rem;
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    
+    
+}
+.removeImg{
+    position: absolute;
+    right: 3%;
+    top: 5%;
+}
+.WriteBlog>div>img{
+    width: 100%;
+    border-radius: 10px;
+}
+.WriteBlog>form{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.addImage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 11rem;
+    padding: .6rem;
+    border-radius: 10px;
+    gap: 1rem;
+    font-weight:300;
+    border: 1px solid var(--text-color);
+}
+.WriteBlog>form>.input-container>input{
+    background-color: transparent;
+    border: 1px var(--text-color) solid;
+    border-radius: 0%;
+    color: white;
+}
+.WriteBlog>form>input[type=file]{
+    display: none;
+}
