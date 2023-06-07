@@ -2,13 +2,15 @@ import "./Security.css"
 import { useState,useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import loadingGif3 from "../../Images/loading3.svg"
-import { resetPassword } from "../../api/userRequest";
+//import { resetPassword } from "../../api/userRequest";
 import { UAState } from "../../Context/uaDetailsProvider";
 import { useNavigate } from "react-router-dom";
+import useAxios from "../../hooks/useAxios";
 //import jwtDecode from "jwt-decode";
 
 const Security=()=>{
-    const {user,setToken}=UAState()
+    const {user,setToken,token}=UAState()
+    const API=useAxios()
     const [showPassword, setShowPassword]=useState(false)
     const [isLoading, setIsLoading]=useState(false)
     const [emptyError,setEmptyError]=useState(false)
@@ -21,6 +23,13 @@ const Security=()=>{
         newPassword:"",
         confirmNewPassword:""
     })
+
+    const config={
+        headers:{
+            Authorization:`Bearer ${token}`
+    
+        }
+    }
 
     useEffect(()=>{
         const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{7,40}$/;
@@ -71,7 +80,8 @@ const Security=()=>{
             return;
         }
 
-        const {data}=await resetPassword(formData)
+        //const {data}=await resetPassword(formData)
+        const {data}= await API.patch("/api/user/resetPassword", formData, config)
         setMsg(data.message)
 
         if(data.accessToken){
@@ -82,14 +92,7 @@ const Security=()=>{
             setIsLoading(false)
             navigate(`/${user.username}`)
         }
-
-
-        
         setIsLoading(false)
-
-
-
-
 
     }
     return(

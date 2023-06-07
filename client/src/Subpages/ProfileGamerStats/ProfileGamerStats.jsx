@@ -1,16 +1,18 @@
 import { useState } from "react"
 import loadingGif3 from "../../Images/loading3.svg"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { addNewGameInfo, deleteGameInfo } from "../../api/userRequest"
+//import { addNewGameInfo, deleteGameInfo } from "../../api/userRequest"
 import { UAState } from "../../Context/uaDetailsProvider"
 import { useNavigate } from "react-router-dom"
 //import jwtDecode from "jwt-decode"
 import "./ProfileGamerStats.css"
+import useAxios from "../../hooks/useAxios";
 
 
 const ProfileGamerStats=()=>{
     const [showInput,setShowInput]=useState(false)
-    const {user,setToken}=UAState()
+    const {user,setToken,token}=UAState()
+    const API=useAxios()
     const navigate=useNavigate()
     const [isLoading, setIsLoading]=useState(false)
     const [errorMessage,setErrorMessage]=useState("")
@@ -19,6 +21,14 @@ const ProfileGamerStats=()=>{
         gameIgn:"",
         gameId:""
     })
+
+    const config={
+        headers:{
+            Authorization:`Bearer ${token}`
+    
+        }
+    }
+
     const handleShowButton=()=>{
         setShowInput(!showInput)
         
@@ -32,9 +42,10 @@ const ProfileGamerStats=()=>{
         e.preventDefault()
         setIsLoading(true)
         
-        const {data}=await addNewGameInfo(gameInfo)
+        //const {data}=await addNewGameInfo(gameInfo)
+        const {data}= await API.put("/api/user/addNewGameInfo", gameInfo, config)
         
-
+        
         if(data.message==="Update Failed" || data.message==="Game Already Has Details"){
             setErrorMessage(data.message)
             setIsLoading(false)
@@ -46,12 +57,14 @@ const ProfileGamerStats=()=>{
             localStorage.setItem("UAData",JSON.stringify(data.accessToken))
             setIsLoading(false)
             navigate(`/${user.username}`)
-
+            
         }
     }
     const handleDelete=async(game)=>{
         
-        const {data}=await deleteGameInfo({game})
+        const {data}= await API.put("/api/user/deleteGameInfo", {game}, config)
+
+        //const {data}=await deleteGameInfo({game})
         if(data.message==="Update Successful"){
             setToken(data.accessToken)
             //const {user}=await jwtDecode(data.accessToken)

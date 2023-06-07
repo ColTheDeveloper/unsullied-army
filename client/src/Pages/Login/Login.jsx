@@ -3,12 +3,14 @@ import { Link,useNavigate,useLocation} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Login.css"
 import { UAState } from "../../Context/uaDetailsProvider";
-import { loginUser } from "../../api/userRequest";
+//import { loginUser } from "../../api/userRequest";
 //import loadingGif from "../../Images/mainLoading.gif"
 import loadingGif3 from "../../Images/loading3.svg"
+import useAxios from "../../hooks/useAxios";
 //import jwtDecode from "jwt-decode";
 
 const Login=()=>{
+    const API=useAxios()
     const [showPassword, setShowPassword]=useState(false)
     const {setToken}=UAState()
     const [isLoading,setIsLoading]=useState(false)
@@ -66,7 +68,8 @@ const Login=()=>{
         }
 
         try {
-            const {data}= await loginUser(formData)
+            //const {data}= await loginUser(formData)
+            const {data}= await API.post("/api/auth/login", formData)
             setToken(data)
             //const {user}=jwtDecode(data)
             //setUser(user)

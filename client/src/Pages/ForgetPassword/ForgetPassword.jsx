@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import "./ForgetPassword.css"
 import loadingGif3 from "../../Images/loading3.svg"
-import { sendResetPasswordLink } from "../../api/userRequest";
+//import { sendResetPasswordLink } from "../../api/userRequest";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useAxios from "../../hooks/useAxios";
 
 const ForgetPassword=()=>{
     const [userIdentity,setUserIdentity]=useState("")
+    const API=useAxios()
     const [isLoading,setIsLoading]=useState(false)
     const [noticeMsg,setNoticeMsg]=useState("")
     const [error,setError]=useState(false)
@@ -22,7 +24,8 @@ const ForgetPassword=()=>{
         console.log(userIdentity)
         setIsLoading(true)
         try {
-            await sendResetPasswordLink(userIdentity)
+            //await sendResetPasswordLink(userIdentity)
+            await API.post("/api/user/sendResetPassword", {userIdentity})
             setNoticeMsg("Link has been Sent to your Mail,Click it to reset your password")
             setIsSuccessful(true)
             setIsLoading(false)

@@ -16,6 +16,8 @@ const usernameIsUnique=asyncHandler(async(req,res)=>{
 
     if(username.length<=5) return res.status(200).json({message:"Username must be more that 5",isUnique:false})
 
+    if(username.indexOf(" ")>0) return res.status(200).json({message:"Username can't contain space",isUnique:false})
+
     const foundUser= await userModel.findOne({username:username})
 
     if(foundUser) return res.json({message:"Username Already Existed",isUnique:false})

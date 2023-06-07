@@ -4,16 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ToastContainer, toast } from 'react-toastify';
 import { Link, useNavigate,useLocation } from "react-router-dom";
 import countries from "../../data/countries.json";
-import { checkUsernameUniqueness, registerUser } from "../../api/userRequest";
+//import { checkUsernameUniqueness, registerUser } from "../../api/userRequest";
 import { UAState } from "../../Context/uaDetailsProvider";
 //import loadingGif from "../../Images/mainLoading.gif"
 //import loadingGif2 from "../../Images/loading2.svg"
 import loadingGif3 from "../../Images/loading3.svg"
+import useAxios from "../../hooks/useAxios";
 //import jwtDecode from "jwt-decode";
 
 
 const Register=()=>{
     const [showPassword, setShowPassword]=useState(false)
+    const API=useAxios()
     const [passwordAvailable,setPasswordAvailable]=useState(false)
     const [isSelcted, setSelected]=useState(false)
     const [isAfrica, setIsAfrica]=useState(true)
@@ -76,19 +78,22 @@ const Register=()=>{
         setIsTypingUsername(true)
         const username=e.target.value
         console.log(username)
-
+        
         try {
-            const {data}=await checkUsernameUniqueness(username)
+            //const {data}=await checkUsernameUniqueness(username)
+            const {data}= await API.post("/api/user/checkUsername",{username})
             console.log(data.isUnique)  
             setUsernameIsUnique(data.isUnique)
             setUsernameChecking(false)
             setErrorMessage(data.message)
             console.log(data.message)
+            setIsLoading(true)
             if(data.message==="")setIsLoading(false)
         } catch (error) {
             console.log(error.response)
             setUsernameChecking(false)  
             setUsernameIsUnique(error.response.data.isUnique)  
+            setIsLoading(true)
         }
     }
 
@@ -143,7 +148,8 @@ const Register=()=>{
         }
 
         try {
-            const {data}=await registerUser(formData)
+            //const {data}=await registerUser(formData)
+            const {data}= await API.post("/api/auth/register", formData)
             setToken(data)
             //const {user}=await jwtDecode(data)
             //setUser(user)

@@ -44,7 +44,7 @@ const register=asyncHandler(async(req,res)=>{
         httpOnly:true,
         secure:process.env.NODE_ENV==="production",
         sameSite:"None",
-        maxAge:7 * 24 * 60 * 1000
+        maxAge: 7 * 24 * 60 * 1000
     })
 
     res.json(accessToken)
@@ -91,7 +91,7 @@ const login=asyncHandler(async(req,res)=>{
         httpOnly:true, //accessible only by web server
         secure:process.env.NODE_ENV==="production" ,// https
         sameSite: "None", //cross-site cookie
-        maxAge: 7 * 24 * 60 * 1000 //cookie expires in 10min
+        maxAge: 7 * 24 * 60 * 1000//cookie expires in 10min
     })
 
     res.json(accessToken)

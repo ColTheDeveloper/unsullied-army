@@ -3,13 +3,22 @@ import { useState } from "react";
 import { UAState } from "../../Context/uaDetailsProvider";
 import "./EditProfile.css"
 import { useNavigate } from "react-router-dom";
-import { updateUser } from "../../api/userRequest";
+//import { updateUser } from "../../api/userRequest";
 import loadingGif3 from "../../Images/loading3.svg"
+import useAxios from "../../hooks/useAxios";
 
 const EditProfile=()=>{
-    const {user,setToken,pageUserInfo}=UAState()
+    const {user,setToken,token,pageUserInfo}=UAState()
+    const API=useAxios()
     const [isLoading,setIsLoading]=useState(false)
     const navigate=useNavigate()
+
+    const config={
+        headers:{
+            Authorization:`Bearer ${token}`
+    
+        }
+    }
     
     const [formData,setFormData]=useState({
         firstName:pageUserInfo.firstName,
@@ -23,7 +32,8 @@ const EditProfile=()=>{
         e.preventDefault()
         setIsLoading(true)
         try {
-            const {data}=await updateUser(formData)
+            //const {data}=await updateUser(formData)
+            const {data}= await API.patch("/api/user/updateUser", formData, config)
             setToken(data)
             
             localStorage.setItem("UAData",JSON.stringify(data))

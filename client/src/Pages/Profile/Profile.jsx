@@ -6,24 +6,27 @@ import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom"
 import { UAState } from "../../Context/uaDetailsProvider"
 import {useState, useEffect } from "react"
 import Preloader from "../../Components/Preloader/Preloader"
-import axios from "axios"
+//import axios from "axios"
+import useAxios from "../../hooks/useAxios"
 
 const Profile=()=>{
     const {user,pageUserInfo,setPageUserInfo}=UAState()
     //let pageUserInfo= {}
     //const [pageUserInfo, setPageUserInfo]=useState({})
+    const API=useAxios()
     const [isLoading, setIsLoading]=useState(true)
     const {username}=useParams()
     const navigate=useNavigate()
 
-    const apiUrl=process.env.REACT_APP_API_URL
+    
     
     
     useEffect(()=>{
         const checkUsername=async()=>{
             setIsLoading(true)
             try {
-                const {data}=await axios.post(`${apiUrl}/api/user/getUserWithUsername`, {username})//getUserWithUsername(username)
+                //const {data}=await axios.post(`${apiUrl}/api/user/getUserWithUsername`, {username})
+                const {data}= await API.post("/api/user/getUserWithusername", {username})
                 if(!data.alreadyExisted){
                     navigate("/404")
                 }else{

@@ -6,8 +6,10 @@ import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
 import "react-quill/dist/quill.bubble.css"
 import { uploadImage } from "../../api/uploadRequest"
-import { createBlog } from "../../api/blogRequest"
+//import { createBlog } from "../../api/blogRequest"
 import { useNavigate } from "react-router-dom"
+import useAxios from "../../hooks/useAxios"
+import { UAState } from "../../Context/uaDetailsProvider"
 
 
 
@@ -16,6 +18,8 @@ const WriteBlog=()=>{
     const [img,setImg]=useState(null)
     const imgRef=useRef()
     const navigate=useNavigate()
+    const API=useAxios()
+    const {token}=UAState()
     const [isLoading, setIsLoading]=useState(false)
     const [emptyError, setEmptyError]=useState(false)
     const [formData, setFormData]=useState({
@@ -44,6 +48,13 @@ const WriteBlog=()=>{
         }
     };
 
+    const config={
+        headers:{
+            Authorization:`Bearer ${token}`
+    
+        }
+    }
+
 
     const handleSubmit=async(e)=>{
         e.preventDefault()
@@ -66,7 +77,8 @@ const WriteBlog=()=>{
         await uploadImage(imageData)
 
         try {
-            const {data}= await createBlog(formData)
+            //const {data}= await createBlog(formData)
+            const {data}= await API.post("/api/blog", formData, config)
             console.log(data)
             setIsLoading(false)
             navigate("/blog")
@@ -74,10 +86,6 @@ const WriteBlog=()=>{
             console.log(error)
             setIsLoading(false)
         }
-
-
-
-
     }
 
     return(
@@ -128,7 +136,7 @@ const WriteBlog=()=>{
                     className="u-input"
                     placeholder="write something..."
                     value={formData.blogContent}
-                    style={{height:"60vh",marginBottom:"2rem"}}
+                    style={{height:"60vh",marginBottom:"2rem",color:"#e0dcdc"}}
                     
                     
                 />

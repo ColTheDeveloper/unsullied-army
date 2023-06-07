@@ -1,11 +1,15 @@
 import { createContext, useContext, useState,useEffect } from "react";
 import jwtDecode from "jwt-decode";
+//import useAxios from "../hooks/useAxios";
+import axios from "axios"
 
 const UAContext= createContext()
 
 
 const UADetailsProvider=({children})=>{
     const [user,setUser]=useState(null);
+    const [allBlogs, setAllBlogs]=useState([])
+    
     const [token,setToken]=useState(localStorage.getItem("UAData")?JSON.parse(localStorage.getItem("UAData")) : null)
     //const [isLoading, setIsLoading]=useState(true)
     const [pageUserInfo, setPageUserInfo]=useState({})
@@ -13,7 +17,7 @@ const UADetailsProvider=({children})=>{
     const newToken=localStorage.getItem("UAData")
     
     
-    
+    const apiUrl=process.env.REACT_APP_API_URL
     
 
     useEffect(()=>{
@@ -21,22 +25,30 @@ const UADetailsProvider=({children})=>{
         
         const {user}=jwtDecode(token)
 
-        console.log(user)
-
-
         //const userInfo=JSON.parse(localStorage.getItem("userInfo"))
         setUser(user)
     },[token])
 
     useEffect(()=>{
         setToken(JSON.parse(localStorage.getItem("UAData")))
-        console.log("changed")
         //const userInfo=JSON.parse(localStorage.getItem("userInfo"))
       
     },[newToken])
 
+    useEffect(()=>{
+        
+        const fetchBlog=async()=>{
+            const {data}=await axios.get(`${apiUrl}/api/blog`)
+            setAllBlogs(data)
+
+        }
+        fetchBlog()
+
+        // eslint-disable-next-line
+    },[])
+
     return(
-        <UAContext.Provider value={{token,setToken,setUser,user,pageUserInfo,setPageUserInfo}} >
+        <UAContext.Provider value={{token,setToken,setUser,user,pageUserInfo,setPageUserInfo,allBlogs, setAllBlogs}} >
             {children}
         </UAContext.Provider>
     )

@@ -5,14 +5,17 @@ import { UAState } from "../../Context/uaDetailsProvider";
 import { Link } from "react-router-dom";
 
 import "./NavProfile.css"
-import { logoutUser } from "../../api/userRequest";
+import useAxios from "../../hooks/useAxios";
+//import { logoutUser } from "../../api/userRequest";
 
 
 const NavProfile=()=>{
     const {user,setUser,setToken}=UAState()
+    const API=useAxios()
     const logout=async()=>{
         try {
-            const data=await logoutUser()
+            //const data=await logoutUser()
+            const data= await API.get("/api/auth/logout")
             console.log(data)
             localStorage.removeItem("UAData")
             await setUser(null)

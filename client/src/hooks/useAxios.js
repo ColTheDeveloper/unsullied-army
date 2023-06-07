@@ -8,9 +8,9 @@ const apiUrl=process.env.REACT_APP_API_URL
 
 const useAxios=()=>{
 
-    const {setToken,token}=UAState()
+    const {setToken,token,setUser}=UAState()
 
-    const API=axios.create({withCredentials:true,baseURL: apiUrl,headers:{Authorization: `Bearer ${token}`}})
+    const API=axios.create({withCredentials:true,baseURL: apiUrl})
 
     API.interceptors.request.use(async(req)=>{
 
@@ -21,13 +21,27 @@ const useAxios=()=>{
     
         if(!isExpired) return req
     
-        const {data}= await axios.get(`${apiUrl}/api/auth/refresh`,{withCredentials:true})
-    
-        console.log(data)
-        setToken(data)
-        localStorage.setItem("UAData",JSON.stringify(data))
-    })
 
+        try {
+            const {data}= await axios.get(`${apiUrl}/api/auth/refresh`,{withCredentials:true})
+            console.log({data})
+            req.headers.Authorization= `Bearer ${data}`
+            localStorage.setItem("UAData",JSON.stringify(data))
+            
+            return req
+        } catch (error) {
+            if(error.response.data.message==="Login Session Expired"){
+                await axios.get(`${apiUrl}/api/auth/logout`)
+                localStorage.removeItem("UAData")
+                setToken(null)
+                setUser(null)
+                console.log(error.response.data)
+                return req
+            }
+            
+        }
+
+    })
     return API
 }
 

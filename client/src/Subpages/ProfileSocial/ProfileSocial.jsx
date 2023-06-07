@@ -1,14 +1,16 @@
 import { useState } from "react";
 import "./ProfileSocial.css"
 import { UAState } from "../../Context/uaDetailsProvider";
-import { updateUser } from "../../api/userRequest";
+//import { updateUser } from "../../api/userRequest";
 import { useNavigate } from "react-router-dom";
 import loadingGif3 from "../../Images/loading3.svg"
+import useAxios from "../../hooks/useAxios";
 //import jwtDecode from "jwt-decode";
 
 const ProfileSocial=()=>{
-    const {user,setToken,pageUserInfo}=UAState()
+    const {user,token,setToken,pageUserInfo}=UAState()
     const [isLoading,setIsLoading]=useState(false)
+    const API=useAxios()
     const navigate=useNavigate()
     const [formData, setFormData]=useState({
         instagram:pageUserInfo.instagram,
@@ -19,6 +21,13 @@ const ProfileSocial=()=>{
         twitch:pageUserInfo.twitch
     })
 
+    const config={
+        headers:{
+            Authorization:`Bearer ${token}`
+    
+        }
+    }
+
     const handleChange=(e)=>{
         setFormData({...formData,[e.target.name]:e.target.value})
     }
@@ -27,7 +36,8 @@ const ProfileSocial=()=>{
         e.preventDefault()
         setIsLoading(true)
         try {
-            const {data}=await updateUser(formData)
+            //const {data}=await updateUser(formData)
+            const {data}= await API.patch("/api/user/updateUser", formData, config)
             setToken(data)
             //const {user}=await jwtDecode(data)
             //setUser(user)
