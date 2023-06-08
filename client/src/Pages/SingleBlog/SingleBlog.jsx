@@ -6,7 +6,7 @@ const SingleBlog=()=>{
 
     const apiUrl=process.env.REACT_APP_API_URL
 
-    const blog=allBlogs[2]
+    const blog=allBlogs[1]
 
     console.log(blog)
     return(

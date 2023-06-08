@@ -44,7 +44,7 @@ const UADetailsProvider=({children})=>{
         }
         fetchBlog()
 
-        // eslint-disable-next-line
+
     },[])
 
     return(
